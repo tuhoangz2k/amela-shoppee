@@ -15,7 +15,7 @@ import useViewport from 'hooks/useViewport ';
 type Props = {};
 
 const AuthHeader = (props: Props) => {
-  const deviceWidth = Number(useViewport());
+  const deviceWidth = useViewport().width;
   return (
     <WrapHeader>
       <Container>

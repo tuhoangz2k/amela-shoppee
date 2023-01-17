@@ -13,8 +13,10 @@ export const WrapHeader = styled.header`
   align-items: center;
   height: 5.125em;
   padding: 0 2.5em;
+  background-color: white;
   @media (max-width: ${breakPonits.sm}px) {
-    padding: 1.25em;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
   }
 `;
 export const Container = styled.div`

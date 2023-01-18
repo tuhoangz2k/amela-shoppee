@@ -36,7 +36,18 @@ const LoginForm: React.FC<Props> = ({}) => {
         <FormStyled.Item
           label="Username"
           name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
+          rules={[
+            {
+              required: true,
+              min: 6,
+              message: 'your username has must be at least 6 characters',
+            },
+            {
+              type: 'email',
+              message: 'username must an valid email address',
+            },
+          ]}
+          hasFeedback
         >
           <InputStyled placeholder="Username" />
         </FormStyled.Item>
@@ -44,7 +55,13 @@ const LoginForm: React.FC<Props> = ({}) => {
         <FormStyled.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[
+            {
+              required: true,
+              message: 'Please password has must be at least 6 characters',
+              min: 6,
+            },
+          ]}
         >
           <InputStyled.Password placeholder="Password" />
         </FormStyled.Item>
@@ -58,7 +75,7 @@ const LoginForm: React.FC<Props> = ({}) => {
         </FormStyled.Item>
 
         <LabelNavigate>
-          You have not an account!<Link to={routePaths.register}>Sign up now</Link>
+          You have not an account! <Link to={routePaths.register}>Sign up now</Link>
         </LabelNavigate>
 
         <FormStyled.Item>

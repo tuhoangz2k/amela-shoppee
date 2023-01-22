@@ -4,5 +4,5 @@ export const colors = {
   'gray-2': 'rgba(0,0,0,.65)',
   white: '#ffffff',
   background: '#f5f5f5',
-  blue: '#05a',
+  blue: '#0e5ba4',
 } as const;

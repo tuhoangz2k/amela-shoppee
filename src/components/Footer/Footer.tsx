@@ -21,6 +21,7 @@ import { routePaths, colors } from 'constants/index';
 import FooterMobile from './components/FooterBodyMobile';
 import { Link } from 'react-router-dom';
 import IconComp from 'components/IconComp';
+import FooterBodyPC from './components/FooterBodyPC';
 type Props = {};
 
 const Contact = [
@@ -63,7 +64,7 @@ const Footer: React.FC<Props> = ({}) => {
           isOpen={isOpen}
         />
       ) : (
-        <></>
+        <FooterBodyPC Contact={Contact} INFORMATION={INFORMATION} EXTRAS={EXTRAS} />
       )}
       <FooterBottom>
         <TypographyStyled>
@@ -77,8 +78,8 @@ const Footer: React.FC<Props> = ({}) => {
           Your Store © 2023
         </TypographyStyled>
         <SocialsContainer>
-          {FooterSocials.map((icon) => (
-            <IconComp Icon={icon} />
+          {FooterSocials.map((icon, index) => (
+            <IconComp Icon={icon} key={index} />
           ))}
         </SocialsContainer>
       </FooterBottom>

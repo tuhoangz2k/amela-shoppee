@@ -1,9 +1,17 @@
 import React from 'react';
+import { Wrapper, FormWrapper } from './RegisterPage.styled';
+import RegisterForm from 'components/RegisterForm';
 
 type Props = {};
 
-const SignoutPage = (props: Props) => {
-  return <div>SignoutPage</div>;
+const RegisterPage = (props: Props) => {
+  return (
+    <Wrapper>
+      <FormWrapper>
+        <RegisterForm />
+      </FormWrapper>
+    </Wrapper>
+  );
 };
 
-export default SignoutPage;
+export default RegisterPage;

@@ -3,4 +3,5 @@ export const routePaths = {
   login: '/login',
   register: '/register',
   cart: '/cart',
+  profile: '/account/profile',
 } as const;

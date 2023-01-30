@@ -3,6 +3,8 @@ import { routePaths } from '../constants';
 import Login from 'pages/LoginPage';
 import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/RegisterPage';
+import MainLayout from 'layouts/MainLayout';
+import ProfilePage from 'pages/ProfilePage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -19,6 +21,14 @@ const useRouteElement = () => {
         <AuthLayout>
           <Register />
         </AuthLayout>
+      ),
+    },
+    {
+      path: routePaths.profile,
+      element: (
+        <MainLayout>
+          <ProfilePage />
+        </MainLayout>
       ),
     },
   ]);

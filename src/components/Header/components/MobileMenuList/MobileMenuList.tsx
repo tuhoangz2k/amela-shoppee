@@ -11,6 +11,9 @@ const MobileMenuList = (props: Props) => {
     women: false,
     modest: false,
   });
+
+  const [isOpenSearchInput, setIsOpenSearchInput] = useState(true);
+
   const toggleMenuList = (
     name: string,
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
@@ -21,6 +24,7 @@ const MobileMenuList = (props: Props) => {
       [name]: !isOpenCategories[name],
     }));
   };
+
   return (
     <MobileMenuListWrap>
       {categories.map((categories, index) => {

@@ -13,14 +13,13 @@ import {
 import images from 'assets/imgs';
 import useViewport from 'hooks/useViewport ';
 import { Link } from 'react-router-dom';
-import { routePaths, categories } from 'constants/index';
+import { routePaths, categories, navList } from 'constants/index';
 import {
   MenuOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
 import { Space } from 'antd';
 import SearchInput from '../SearchInput';
 import { breakPonits } from 'constants/index';
@@ -28,81 +27,14 @@ import MobileMenuList from '../MobileMenuList';
 
 type Props = {};
 
-interface navType {
-  label: string;
-  path: string;
-  items?: MenuProps['items'];
-}
-const navList: Array<navType> = [
-  { label: 'Home', path: routePaths.home },
-
-  {
-    label: 'MEN',
-    path: routePaths.home,
-    items: [
-      {
-        key: 'hoodies',
-        label: 'hoodies',
-        onClick: ({ key }) => {
-          console.log(key);
-        },
-      },
-      {
-        key: 'casual',
-        label: 'casual',
-        onClick: ({ key }) => {
-          console.log(key);
-        },
-      },
-    ],
-  },
-  {
-    label: 'WOMEN',
-    path: routePaths.women,
-    items: [
-      {
-        key: 'modest',
-        label: 'MODEST FASHION',
-        onClick: ({ key }) => {
-          console.log(key);
-        },
-        children: [
-          { key: 'baby', label: 'BABY SUIT' },
-          { key: 'jackets', label: 'JACKETS FOR WOMEN' },
-          { key: 'jogers', label: 'JOGERS' },
-          { key: 'tshirts', label: 'T-SHIRTS' },
-        ],
-      },
-      {
-        onClick: ({ key }) => {
-          console.log(key);
-        },
-        key: 'preppy',
-        label: 'PREPPY STYLE',
-      },
-      {
-        key: 'child',
-        label: 'CHILD',
-      },
-      {
-        key: 'office',
-        label: 'OFFICE',
-      },
-      {
-        key: 'capree',
-        label: 'CAPREE',
-      },
-    ],
-  },
-  { label: 'OFFICE WEAR', path: routePaths.home },
-  { label: 'PRODUCTS', path: routePaths.home },
-];
-
 const HeaderBodyComp = (props: Props) => {
   const quantity = 99;
   const widthDevice = useViewport().width;
-  const [isOpenMenu, setIsOpenMenu] = useState(true);
-
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const onToggle = (isOpen: boolean) => {
+    setIsOpenSearch(isOpen);
+  };
   return (
     <HeaderBodyWrap>
       <LogoWrap>
@@ -152,7 +84,7 @@ const HeaderBodyComp = (props: Props) => {
             />
           </Item>
         )}
-        <Item>
+        <Item onClick={() => onToggle(true)}>
           <SearchOutlined style={{ fontSize: '22px' }} />
         </Item>
         <Item>
@@ -160,9 +92,12 @@ const HeaderBodyComp = (props: Props) => {
           <QuantityCart>{quantity}</QuantityCart>
         </Item>
       </ItemsWrap>
-      <SearchWrap>
-        <SearchInput />
-      </SearchWrap>
+      {isOpenSearch && (
+        <SearchWrap>
+          <SearchInput onToggle={onToggle} />
+        </SearchWrap>
+      )}
+
       {widthDevice <= breakPonits.sm && isOpenMenu && <MobileMenuList />}
     </HeaderBodyWrap>
   );

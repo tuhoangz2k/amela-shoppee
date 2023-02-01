@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   HeaderTopWrap,
-  HeaderSupportLabel,
   HeaderTopNav,
   Content,
   DropdownStyled,
@@ -73,7 +72,6 @@ type Props = {};
 const HeaderTopComp = (props: Props) => {
   const [isLogin, setIsLogin] = useState(false);
   const widthDevice = useViewport().width;
-  console.log(widthDevice);
   return (
     <HeaderTopWrap>
       {widthDevice >= breakPonits.sm && (

@@ -4,7 +4,7 @@ import React from 'react';
 
 const MainLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <Header />
       {children}
       <Footer />

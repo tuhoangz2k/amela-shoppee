@@ -6,4 +6,5 @@ export const colors = {
   background: '#f5f5f5',
   blue: '#0e5ba4',
   textColor: '#444444',
+  borderColor: '#d1d7dc',
 } as const;

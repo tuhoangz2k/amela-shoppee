@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IUserLogin } from 'models';
+import userApi from 'api/userApi';
 
 import {
   LoginformContainer,
@@ -12,12 +14,20 @@ import {
   LabelNavigate,
 } from './LoginForm.styled';
 import { routePaths } from 'constants/index';
+import { useMutation } from '@tanstack/react-query';
 
 type Props = {};
 
 const LoginForm: React.FC<Props> = ({}) => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const loginMatation = useMutation({
+    mutationFn: (data: IUserLogin) => userApi.login(data),
+    onSuccess: (data) => {
+      console.log(data);
+      localStorage.setItem('token', data.data.authorisation.token);
+    },
+  });
+  const onFinish = async (values: any) => {
+    loginMatation.mutate(values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -28,14 +38,13 @@ const LoginForm: React.FC<Props> = ({}) => {
       <LoginLabel>Login</LoginLabel>
       <FormStyled
         name="basic"
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <FormStyled.Item
           label="Username"
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
@@ -66,13 +75,9 @@ const LoginForm: React.FC<Props> = ({}) => {
           <InputStyled.Password placeholder="Password" />
         </FormStyled.Item>
 
-        <FormStyled.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
+        {/* <FormStyled.Item valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
           <CheckboxStyled>Remember me</CheckboxStyled>
-        </FormStyled.Item>
+        </FormStyled.Item> */}
 
         <LabelNavigate>
           You have not an account! <Link to={routePaths.register}>Sign up now</Link>

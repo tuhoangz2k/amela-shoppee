@@ -3,6 +3,7 @@ import logoImg from './logo.png';
 import qrImg from './qr.svg.png';
 import authImg from './auth.jpg';
 import avatar from './userAvatar.jpg';
+import avatarUser from './avatar.jpg';
 
 export default {
   loginImg,
@@ -10,4 +11,5 @@ export default {
   authImg,
   qrImg,
   avatar,
+  avatarUser,
 };

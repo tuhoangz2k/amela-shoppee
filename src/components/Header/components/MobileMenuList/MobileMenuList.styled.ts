@@ -9,6 +9,7 @@ export const MobileMenuListWrap = styled.ul`
   max-height: 60vh;
   overflow-y: scroll;
   font-size: 14px;
+  margin-top: 0;
 `;
 export const MobileItemLink = styled(Link)`
   display: flex;

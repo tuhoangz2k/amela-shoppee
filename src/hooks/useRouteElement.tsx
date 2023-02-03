@@ -5,6 +5,7 @@ import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/RegisterPage';
 import MainLayout from 'layouts/MainLayout';
 import ProfilePage from 'pages/ProfilePage';
+import HomePage from 'pages/HomePage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -28,6 +29,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <ProfilePage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: routePaths.home,
+      element: (
+        <MainLayout>
+          <HomePage />
         </MainLayout>
       ),
     },

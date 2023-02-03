@@ -5,8 +5,8 @@ export const routePaths = {
   cart: '/cart',
   profile: '/account/profile',
   purchase: '/account/purchase',
-  men: '/',
-  women: '/',
+  men: '/men',
+  women: '/women',
   hoodies: '/',
   casual: '/',
 } as const;

@@ -84,11 +84,7 @@ const RegisterForm: React.FC<Props> = ({}) => {
           name="phoneNumber"
           rules={[
             {
-              required: true,
-              message: 'Phone is required',
-            },
-            {
-              type: 'number',
+              pattern: /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/,
               message: 'Phone is must number',
             },
           ]}

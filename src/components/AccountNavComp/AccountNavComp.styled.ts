@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from 'constants/index';
 import { Avatar } from 'antd';
 import { Typography } from 'antd';
-const { Title, Paragraph, Text, Link } = Typography;
+const { Paragraph } = Typography;
 
 export const AccountNavCompWrap = styled.div`
   border: 1px solid ${colors.borderColor};

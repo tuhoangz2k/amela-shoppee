@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Divider, Typography } from 'antd';
+import { Typography } from 'antd';
 import { breakPonits, colors } from 'constants/index';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 const { Title, Paragraph, Text, Link } = Typography;
 

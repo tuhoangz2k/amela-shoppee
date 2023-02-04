@@ -8,6 +8,8 @@ import {
   FooterList,
   FooterInput,
   FooterButton,
+  MobileItem,
+  MobileItemOther,
 } from './FooterMobile.styled';
 import { DownOutlined } from '@ant-design/icons';
 
@@ -52,9 +54,9 @@ const FooterMobile: React.FC<Props> = ({
           className={isOpen.isOpenContact ? 'active' : ''}
         >
           {Contact.map((contact, index) => (
-            <li key={`${contact.label}${index}`} style={{ margin: '0.75em 0' }}>
+            <MobileItem key={`${contact.label}${index}`}>
               {contact.Icon} <span>{contact.label}</span>
-            </li>
+            </MobileItem>
           ))}
         </FooterList>
       </MobileContainer>
@@ -72,9 +74,9 @@ const FooterMobile: React.FC<Props> = ({
           className={isOpen.isOpenInfo ? 'active' : ''}
         >
           {INFORMATION.map((info, index) => (
-            <li key={`${info}${index}`} style={{ margin: '0.75em 0' }}>
+            <MobileItem key={`${info}${index}`}>
               <Link to=".">{info}</Link>
-            </li>
+            </MobileItem>
           ))}
         </FooterList>
       </MobileContainer>
@@ -93,26 +95,21 @@ const FooterMobile: React.FC<Props> = ({
           className={isOpen.isOpenExtras ? 'active' : ''}
         >
           {EXTRAS.map((contact, index) => (
-            <li key={`${contact}${index}`} style={{ margin: '0.75em 0' }}>
+            <MobileItem key={`${contact}${index}`}>
               <Link to=".">{contact}</Link>
-            </li>
+            </MobileItem>
           ))}
         </FooterList>
       </MobileContainer>
       <MobileContainer>
         <FooterContentMobile>OUR NEWSLETTER</FooterContentMobile>
-        <li
+        <MobileItemOther
           style={{
             margin: '0.75em 0',
-            listStyle: 'none',
-            color: '#acacac',
-            fontSize: '14px',
-            fontWeight: 400,
-            lineHeight: '24px',
           }}
         >
           Sign up for our newsletter to get the latest news, announcements and special.
-        </li>
+        </MobileItemOther>
         <FooterInput placeholder="Enter Email Address" />
         <FooterButton shape="round">SUBSCRIBE</FooterButton>
       </MobileContainer>

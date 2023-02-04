@@ -47,4 +47,14 @@ export const MobileContainer = styled.div`
   padding-right: 0.9375em;
 `;
 
+export const MobileItem = styled.li`
+  margin: 0.75em 0;
+`;
+export const MobileItemOther = styled(MobileItem)`
+  list-style: none;
+  color: #acacac;
+  fontsize: 14px;
+  font-weight: 400;
+  line-height: 24px;
+`;
 export const FooterBodyPC = styled.div``;

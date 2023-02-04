@@ -6,7 +6,6 @@ import {
   WrapperAccountNavComp,
   ProfileContent,
   ProfileTop,
-  TypographyStyled,
   TitleProfile,
   ParagraphProfile,
   Profilebody,

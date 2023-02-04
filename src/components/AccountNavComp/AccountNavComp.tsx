@@ -3,7 +3,6 @@ import imgs from 'assets/imgs';
 import { routePaths } from 'constants/index';
 import {
   AccountNavCompWrap,
-  AvatarStyled,
   AvatarWrap,
   ParagraphProfile,
   NavigateAccount,

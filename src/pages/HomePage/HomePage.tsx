@@ -1,5 +1,4 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, History, Autoplay } from 'swiper';
 import { routePaths, colors } from 'constants/index';
 import imgs from 'assets/imgs';
@@ -18,7 +17,6 @@ import {
   PolicyInfo,
   PolicyContainer,
   TextStyled,
-  ProductTabWrap,
   ContentContainer,
   TittleStyled,
   SubBanner,
@@ -26,9 +24,19 @@ import {
   SubnavBannerItem,
   ButtonStyled,
   SubImage,
-  BannerOverlay,
+  SectionStyled,
+  BannerStyled,
+  ParallaxBanner,
+  BannerLogoWrap,
+  DescriptionWrap,
+  Text,
+  BannerButton,
 } from './HomePage.styled';
 import { GlobalOutlined, RetweetOutlined, RocketOutlined } from '@ant-design/icons';
+import ProductsHomePage from './components/ProductsHomePage';
+import Feedback from './components/Feedback';
+import { Customer } from './components/Feedback/FeedBack';
+import Partners from './components/Partners';
 
 const policyList = [
   {
@@ -81,6 +89,47 @@ const policyList = [
   },
 ];
 
+const banner = [
+  { imageSrc: imgs.subBanner1, label: 'Fashion' },
+  { imageSrc: imgs.subBanner2, label: 'Accessories' },
+  { imageSrc: imgs.subBanner3, label: 'Men' },
+];
+const produtcs = [
+  { imageLink: imgs.casual, name: 'casual shirt', price: 1000, to: '/' },
+  { imageLink: imgs.ladiesShirt, name: 'ladies shirt', price: 1000, to: '/' },
+  { imageLink: imgs.tshirt, name: 'hoodies', price: 1000, to: '/' },
+  { imageLink: imgs.fancytop, name: 'fancy top', price: 1000, to: '/' },
+  { imageLink: imgs.shorttshirt, name: 'short shirt', price: 1000, to: '/' },
+];
+const customerFeedback: Array<Customer> = [
+  {
+    avatar: imgs.customer,
+    author: 'RAMBO',
+    description:
+      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters',
+  },
+  {
+    avatar: imgs.customer,
+    author: 'RAMBO',
+    description:
+      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters',
+  },
+  {
+    avatar: imgs.customer,
+    author: 'RAMBO',
+    description:
+      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters',
+  },
+];
+const partners = [
+  { imgLink: imgs.partner1 },
+  { imgLink: imgs.partner2 },
+  { imgLink: imgs.partner3 },
+  { imgLink: imgs.partner4 },
+  { imgLink: imgs.partner5 },
+  { imgLink: imgs.partner6 },
+  { imgLink: imgs.partner7 },
+];
 type Props = {};
 const HomePage = (props: Props) => {
   return (
@@ -129,14 +178,60 @@ const HomePage = (props: Props) => {
         <ContentContainer>
           <TittleStyled level={2}>SHOP BY BRAND</TittleStyled>
           <SubnavBannerList>
-            <SubnavBannerItem>
-              <SubImage src={imgs.subBanner1} />
-              <ButtonStyled>Fashion</ButtonStyled>
-              <BannerOverlay className="overlay" />
-            </SubnavBannerItem>
+            {banner.map((ban) => (
+              <SubnavBannerItem key={ban.label}>
+                <SubImage src={ban.imageSrc} />
+                <ButtonStyled>{ban.label}</ButtonStyled>
+              </SubnavBannerItem>
+            ))}
           </SubnavBannerList>
         </ContentContainer>
       </SubBanner>
+      <SectionStyled>
+        <ContentContainer>
+          <ProductsHomePage title="TOP PRODUCTS" products={produtcs} />
+        </ContentContainer>
+      </SectionStyled>
+      <BannerStyled>
+        <SectionStyled>
+          <ContentContainer>
+            <ParallaxBanner>
+              <BannerLogoWrap>
+                <img src={imgs.logoImg} alt="" />
+              </BannerLogoWrap>
+              <DescriptionWrap>
+                <Text>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting
+                  industry. Lorem Ipsum has been the industry's standard dummy text ever
+                  since the 1500s, when an unknown printer took a galley of type and
+                  scrambled it to make a type specimen book.
+                </Text>
+                <Text>
+                  It was popularised in the 1960s with the release of Letraset sheets
+                  containing Lorem Ipsum passages, like Aldus PageMaker including versions
+                  of Lorem Ipsum.
+                </Text>
+              </DescriptionWrap>
+              <BannerButton shape="round">Show Now</BannerButton>
+            </ParallaxBanner>
+          </ContentContainer>
+        </SectionStyled>
+      </BannerStyled>
+      <SectionStyled>
+        <ContentContainer>
+          <ProductsHomePage title="LATEST" products={produtcs} />
+        </ContentContainer>
+      </SectionStyled>
+      <SectionStyled bg="#f8f8f8;">
+        <ContentContainer>
+          <Feedback title="OUR CUSTOMER SAY" customers={customerFeedback} />
+        </ContentContainer>
+      </SectionStyled>
+      <SectionStyled bg="#f8f8f8;">
+        <ContentContainer>
+          <Partners partners={partners} />
+        </ContentContainer>
+      </SectionStyled>
     </Wrapper>
   );
 };

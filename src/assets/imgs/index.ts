@@ -10,6 +10,23 @@ import subBanner1 from './sub-banner1.jpg';
 import subBanner2 from './sub-banner2.jpg';
 import subBanner3 from './sub-banner3.jpg';
 
+import casual from './casual.jpg';
+import fancytop from './fancytop.jpg';
+import ladiesShirt from './ladiesShirt.jpg';
+import shorttshirt from './shorttshirt.jpg';
+import tshirt from './t-shirt.jpg';
+import parallaxBanner from './parallaxBanner.jpg';
+import customer from './customer.jpg';
+
+import noCartItem from './noProductCart.png';
+import partner1 from './partner1.jpg';
+import partner2 from './partner2.jpg';
+import partner3 from './partner3.jpg';
+import partner4 from './partner4.jpg';
+import partner5 from './partner5.jpg';
+import partner6 from './partner6.jpg';
+import partner7 from './partner7.jpg';
+
 export default {
   loginImg,
   logoImg,
@@ -22,4 +39,19 @@ export default {
   subBanner1,
   subBanner2,
   subBanner3,
+  casual,
+  fancytop,
+  ladiesShirt,
+  shorttshirt,
+  tshirt,
+  parallaxBanner,
+  customer,
+  noCartItem,
+  partner1,
+  partner2,
+  partner3,
+  partner4,
+  partner5,
+  partner6,
+  partner7,
 };

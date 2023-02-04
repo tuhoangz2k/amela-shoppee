@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Typography, Button } from 'antd';
-
+import imgs from 'assets/imgs';
 import { breakPonits, colors } from 'constants/index';
-const { Text, Title } = Typography;
+export const { Text, Title } = Typography;
 
 export const Wrapper = styled.div``;
 export const SwiperStyled = styled(Swiper)`
@@ -98,12 +98,6 @@ export const SubBanner = styled.section`
   }
 `;
 
-export const ProductTabWrap = styled.section`
-  padding-top: 80px;
-  @media (max-width: ${breakPonits.md}px) {
-    padding-top: 40px;
-  }
-`;
 export const ContentContainer = styled.div`
   padding-right: 15px;
   padding-left: 15px;
@@ -129,12 +123,15 @@ export const TittleStyled = styled(Title)`
 export const SubnavBannerList = styled.div`
   display: flex;
   gap: 30px;
+  @media (max-width: ${breakPonits.sm}px) {
+    flex-direction: column;
+  }
 `;
 export const SubnavBannerItem = styled.div`
   width: 33.3333%;
   position: relative;
-  &:hover .overlay {
-    display: block;
+  @media (max-width: ${breakPonits.sm}px) {
+    width: 100%;
   }
 `;
 export const SubImage = styled.img`
@@ -153,13 +150,38 @@ export const ButtonStyled = styled(Button)`
   width: 110px;
   height: 40px;
 `;
-export const BannerOverlay = styled.div`
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0, 7);
-  height: 100%;
+
+export const SectionStyled = styled.section`
+  padding: 80px 0;
+  background-color: ${(prop: { bg?: string }) => prop.bg};
+  @media (max-width: ${breakPonits.md}px) {
+    padding: 40px 0;
+  }
+`;
+export const BannerStyled = styled.div`
+  background: center / cover no-repeat url(${imgs.parallaxBanner});
+`;
+export const ParallaxBanner = styled.div`
+  background: white;
+  padding: 40px;
+  text-align: center;
+`;
+export const BannerLogoWrap = styled.div`
+  text-align: center;
+  margin-bottom: 30px;
+`;
+export const DescriptionWrap = styled.div`
+  text-align: center;
+  & .ant-typography {
+    display: block;
+    margin-bottom: 10px;
+  }
+`;
+export const BannerButton = styled(Button)`
+  background-color: ${colors.blue};
+  display: inline-block;
+  color: white;
+  margin-top: 15px;
+  width: 134px !important;
+  height: 44px !important;
 `;

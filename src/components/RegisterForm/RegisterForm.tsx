@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import {
   RegisterformContainer,
@@ -11,16 +11,50 @@ import {
   LabelNavigate,
 } from './RegisterForm.styled';
 import { routePaths } from 'constants/index';
+import { checkHasToken } from 'utils';
+import { useMutation } from '@tanstack/react-query';
+import { IUserRegister } from 'models';
+import userApi from 'api/userApi';
+import { LoadingOutlined } from '@ant-design/icons';
 
 type Props = {};
-
+type ErrorFormType = {
+  status: 'error' | 'success' | 'validating' | 'warning' | undefined;
+  message: string;
+};
 const RegisterForm: React.FC<Props> = ({}) => {
+  const hasToken = checkHasToken();
+  const navigate = useNavigate();
+  const [errorAntd, setErrorAntd] = useState<ErrorFormType>({
+    status: undefined,
+    message: '',
+  });
+  const registerMatation = useMutation({
+    mutationFn: (data: IUserRegister) => userApi.register(data),
+    onSuccess: (data) => {
+      localStorage.setItem('token', data.data.authorisation.token);
+      navigate(routePaths.home);
+    },
+    onError: (error: any) => {
+      if (error.response.status === 401) {
+        setErrorAntd({
+          status: 'error',
+          message: 'Your account or password is incorrect',
+        });
+      }
+    },
+  });
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    registerMatation.mutate(values);
   };
-
+  console.log(registerMatation.isLoading);
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+  };
+  if (hasToken) return <Navigate to={routePaths.home} replace={true} />;
+  const validateMessages = {
+    required: "'${email}' is required111111111!",
+    // ...
   };
   return (
     <RegisterformContainer>
@@ -31,10 +65,11 @@ const RegisterForm: React.FC<Props> = ({}) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        validateMessages={validateMessages}
       >
         <FormStyled.Item
           label="Username"
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
@@ -66,32 +101,17 @@ const RegisterForm: React.FC<Props> = ({}) => {
         </FormStyled.Item>
 
         <FormStyled.Item
-          label="Address"
-          name="Address"
+          label="Full Name"
+          name="name"
           rules={[
             {
               required: true,
-              message: 'Address is required',
+              message: 'Full Name is required',
             },
           ]}
           hasFeedback
         >
           <InputStyled placeholder="Address" />
-        </FormStyled.Item>
-
-        <FormStyled.Item
-          label="Phone Number"
-          name="phoneNumber"
-          rules={[
-            {
-              required: true,
-              pattern: /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/,
-              message: 'Phone number is must number',
-            },
-          ]}
-          hasFeedback
-        >
-          <InputStyled placeholder="Phone Number" />
         </FormStyled.Item>
 
         <LabelNavigate>
@@ -100,8 +120,13 @@ const RegisterForm: React.FC<Props> = ({}) => {
 
         <FormStyled.Item>
           <ButtonWrapperStyled>
-            <ButtonStyled type="primary" htmlType="submit">
-              Register
+            <ButtonStyled
+              type="primary"
+              htmlType="submit"
+              disabled={registerMatation.isLoading}
+            >
+              {!registerMatation.isLoading ? 'Register' : 'Loading...'}
+              {registerMatation.isLoading && <LoadingOutlined />}
             </ButtonStyled>
           </ButtonWrapperStyled>
         </FormStyled.Item>

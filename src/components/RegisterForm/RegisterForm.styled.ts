@@ -49,7 +49,11 @@ export const ButtonStyled = styled(Button)`
   margin-right: auto;
   width: 11.25em;
   border-radius: 40px;
-
+  &:disabled {
+    background: #1677ff !important;
+    color: white !important;
+    opacity: 0.8;
+  }
   @media (max-width: ${breakPonits.sm}px) {
     width: 100%;
     height: 2.625em;

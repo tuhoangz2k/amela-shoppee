@@ -13,7 +13,7 @@ import {
 import images from 'assets/imgs';
 import useViewport from 'hooks/useViewport ';
 import { Link } from 'react-router-dom';
-import { routePaths, categories, navList } from 'constants/index';
+import { routePaths, navList } from 'constants/index';
 import {
   MenuOutlined,
   SearchOutlined,

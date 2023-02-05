@@ -26,6 +26,7 @@ import partner4 from './partner4.jpg';
 import partner5 from './partner5.jpg';
 import partner6 from './partner6.jpg';
 import partner7 from './partner7.jpg';
+import leftbanner from './left-banner.jpg';
 
 export default {
   loginImg,
@@ -54,4 +55,5 @@ export default {
   partner5,
   partner6,
   partner7,
+  leftbanner,
 };

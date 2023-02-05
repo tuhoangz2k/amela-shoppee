@@ -6,6 +6,7 @@ import Register from 'pages/RegisterPage';
 import MainLayout from 'layouts/MainLayout';
 import ProfilePage from 'pages/ProfilePage';
 import HomePage from 'pages/HomePage';
+import ProductPage from 'pages/ProductPage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -37,6 +38,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <HomePage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: routePaths.products,
+      element: (
+        <MainLayout>
+          <ProductPage />
         </MainLayout>
       ),
     },

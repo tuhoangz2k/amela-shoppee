@@ -11,7 +11,7 @@ export const navList: Array<navType> = [
 
   {
     label: 'MEN',
-    path: routePaths.home,
+    path: routePaths.men,
     items: [
       {
         key: 'hoodies',
@@ -68,5 +68,5 @@ export const navList: Array<navType> = [
     ],
   },
   { label: 'OFFICE WEAR', path: routePaths.home },
-  { label: 'PRODUCTS', path: routePaths.home },
+  { label: 'PRODUCTS', path: routePaths.products },
 ];

@@ -2,6 +2,7 @@ import React from 'react';
 import { CardWrap, ImageWrap, Img, TextStyled, TitleStyled } from './CardProduct.styled';
 
 type Product = {
+  id?: string | number;
   imageLink: string;
   name: string;
   price: number;

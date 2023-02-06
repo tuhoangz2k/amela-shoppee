@@ -36,3 +36,16 @@ export const FooterButton = styled(Button)`
   border: none;
   color: white;
 `;
+
+export const TextStyled = styled.p`
+  margin: 0 0 1em 0;
+  fontsize: 14px;
+`;
+export const TextOur = styled(TextStyled)`
+  margin: 0.75em 0;
+  list-style: non;
+  color: #acacac;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+`;

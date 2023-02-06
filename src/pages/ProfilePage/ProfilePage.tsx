@@ -16,10 +16,14 @@ import {
 } from './ProfilePage.styled';
 import AccountNavComp from 'components/AccountNavComp/AccountNavComp';
 import { DatePicker, Radio } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+import userApi from 'api/userApi';
 
 type Props = {};
 
 const ProfilePage = (props: Props) => {
+  const userQuery = useQuery({ queryKey: ['user'], queryFn: userApi.getUser });
+  console.log(userQuery.data);
   const onFinish = async (values: any) => {
     console.log(values);
     console.log(values.birthday.$d);

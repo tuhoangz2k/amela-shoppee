@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { breakPonits } from 'constants/index';
+import { breakPonits, colors } from 'constants/index';
 export const RegisterformContainer = styled.div`
   width: 100%;
   border-radius: 0.5em;
@@ -38,6 +38,12 @@ export const LabelNavigate = styled.div`
   margin-bottom: 1em;
   text-shadow: 1px 1px #000;
   font-weight: 600;
+  & a {
+    color: ${colors.blue};
+  }
+  & a:hover {
+    opacity: 0.7;
+  }
 `;
 export const InputStyled = styled(Input)``;
 export const CheckboxStyled = styled(Checkbox)``;

@@ -10,5 +10,8 @@ const userApi = {
   logout() {
     return http.get('logout');
   },
+  getUser() {
+    return http.get('profile/getUser');
+  },
 };
 export default userApi;

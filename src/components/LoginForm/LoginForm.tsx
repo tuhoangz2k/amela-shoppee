@@ -24,10 +24,7 @@ type ErrorFormType = {
 };
 
 const LoginForm: React.FC<Props> = ({}) => {
-  const [errorAntd, setErrorAntd] = useState<ErrorFormType>({
-    status: undefined,
-    message: '',
-  });
+  const [form] = FormStyled.useForm();
   const hasToken = checkHasToken();
   const navigate = useNavigate();
   const loginMatation = useMutation({
@@ -38,10 +35,10 @@ const LoginForm: React.FC<Props> = ({}) => {
     },
     onError: (error: any) => {
       if (error.response.status === 401) {
-        setErrorAntd({
-          status: 'error',
-          message: 'Your account or password is incorrect',
-        });
+        form.setFields([
+          { name: 'email', errors: ['Your account or password is incorrect'] },
+          { name: 'password', errors: ['Your account or password is incorrect'] },
+        ]);
       }
     },
   });
@@ -50,20 +47,19 @@ const LoginForm: React.FC<Props> = ({}) => {
     loginMatation.mutate(values);
   };
 
-  const handleRemoveErrorMessage = () => {
-    if (!errorAntd.status) return;
-    setErrorAntd({ status: undefined, message: '' });
-  };
   const onFinishFailed = (errorInfo: any) => {};
   if (hasToken) return <Navigate to={routePaths.home} replace={true} />;
+
   return (
     <LoginformContainer>
       <LoginLabel>Login</LoginLabel>
       <FormStyled
+        form={form}
         name="basic"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        onError={(error) => console.log(error)}
       >
         <FormStyled.Item
           label="Username"
@@ -78,13 +74,10 @@ const LoginForm: React.FC<Props> = ({}) => {
               type: 'email',
               message: 'username must an valid email address',
             },
-            {
-              validator(rule, value, callback) {},
-            },
           ]}
           hasFeedback
         >
-          <InputStyled placeholder="Username" onChange={handleRemoveErrorMessage} />
+          <InputStyled placeholder="Username" />
         </FormStyled.Item>
 
         <FormStyled.Item
@@ -98,10 +91,7 @@ const LoginForm: React.FC<Props> = ({}) => {
             },
           ]}
         >
-          <InputStyled.Password
-            placeholder="Password"
-            onChange={handleRemoveErrorMessage}
-          />
+          <InputStyled.Password placeholder="Password" />
         </FormStyled.Item>
 
         {/* <FormStyled.Item valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>

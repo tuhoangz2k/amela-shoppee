@@ -10,4 +10,5 @@ export const routePaths = {
   hoodies: '/',
   casual: '/',
   products: '/products',
+  detail: '/products/1',
 } as const;

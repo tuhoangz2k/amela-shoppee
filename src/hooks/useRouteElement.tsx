@@ -8,6 +8,7 @@ import ProfilePage from 'pages/ProfilePage';
 import HomePage from 'pages/HomePage';
 import ProductPage from 'pages/ProductPage';
 import CartPage from 'pages/CartPage';
+import DetailPage from 'pages/DetailPage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -55,6 +56,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <CartPage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: routePaths.detail,
+      element: (
+        <MainLayout>
+          <DetailPage />
         </MainLayout>
       ),
     },

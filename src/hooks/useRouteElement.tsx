@@ -7,6 +7,7 @@ import MainLayout from 'layouts/MainLayout';
 import ProfilePage from 'pages/ProfilePage';
 import HomePage from 'pages/HomePage';
 import ProductPage from 'pages/ProductPage';
+import CartPage from 'pages/CartPage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -46,6 +47,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <ProductPage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: routePaths.cart,
+      element: (
+        <MainLayout>
+          <CartPage />
         </MainLayout>
       ),
     },

@@ -12,7 +12,7 @@ import {
 } from './HeaderBodyComp.styled';
 import images from 'assets/imgs';
 import useViewport from 'hooks/useViewport ';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { routePaths, navList } from 'constants/index';
 import {
   MenuOutlined,
@@ -24,11 +24,14 @@ import { Space } from 'antd';
 import SearchInput from '../SearchInput';
 import { breakPonits } from 'constants/index';
 import MobileMenuList from '../MobileMenuList';
+import { useAppSelector } from 'hooks/reduxHooks';
+import { cartItemsCount } from 'app/cartSelector';
 
 type Props = {};
 
 const HeaderBodyComp = (props: Props) => {
-  const quantity = 99;
+  const quantity = useAppSelector(cartItemsCount);
+  const navigated = useNavigate();
   const widthDevice = useViewport().width;
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenSearch, setIsOpenSearch] = useState(false);
@@ -87,7 +90,7 @@ const HeaderBodyComp = (props: Props) => {
         <Item onClick={() => onToggle(true)}>
           <SearchOutlined style={{ fontSize: '22px' }} />
         </Item>
-        <Item>
+        <Item onClick={() => navigated(routePaths.cart)}>
           <ShoppingCartOutlined style={{ fontSize: '22px' }} />
           <QuantityCart>{quantity}</QuantityCart>
         </Item>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-carousel-minimal';
 import { CarouselLeftWrap } from './CarouselLeftWrap.styled';
+import { IMAGE_BASE_LINK } from 'constants/index';
 const data = [
   {
     image:
@@ -19,14 +20,17 @@ const data = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg',
   },
 ];
-
-const CarouselLeft = ({}) => {
+const CarouselLeft = ({ images }) => {
   return (
     <CarouselLeftWrap>
       <Carousel
-        data={data}
+        data={
+          images
+            ? images.map((item) => ({ image: `${IMAGE_BASE_LINK}${item?.image}` }))
+            : data
+        }
         width="100%"
-        height="auto"
+        height="500px"
         radius="10px"
         slideNumber={true}
         captionPosition="bottom"

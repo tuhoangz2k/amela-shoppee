@@ -87,6 +87,10 @@ export const QuantityWrap = styled.div`
 `;
 export const InputStyled = styled(Input)`
   flex: 1;
+  padding-left: 0;
+  padding-right: 0;
+
+  text-align: center;
 `;
 export const QuantityButtonStyled = styled(Button)`
   width: 30px;

@@ -20,18 +20,37 @@ import {
   TitleBuy,
   Container,
 } from './CartHasItem.styled';
-import { useAppSelector } from 'hooks/reduxHooks';
-import { cartItemsSelector } from 'app/cartSelector';
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
+import { cartItemTotal, cartItemsSelector } from 'app/cartSelector';
 import { Radio } from 'antd';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  computedToCart,
+  setQuantityToCartById,
+  removeToCart,
+} from 'pages/CartPage/cartSlice';
 
 type Props = {};
 
 const CartHasItem = (props: Props) => {
   const cartProducts = useAppSelector(cartItemsSelector);
-  const total = 1000;
+  const dispatch = useAppDispatch();
+  const total = useAppSelector(cartItemTotal);
   const [selectAll, setSelectAll] = useState(true);
-  console.log(cartProducts);
+
+  const handlePlusOrSubtract = (id: string | number, n: number) => {
+    dispatch(computedToCart({ id: id, quantity: n }));
+  };
+
+  const handleSetQuantity = (id: string | number, n: number) => {
+    if (0) return;
+    dispatch(setQuantityToCartById({ id: id, quantity: n }));
+  };
+
+  const handleRemoveProduct = (id: string | number) => {
+    dispatch(removeToCart({ id }));
+  };
+
   return (
     <CartHasItemWrap>
       <CartTitle>Cart</CartTitle>
@@ -60,14 +79,30 @@ const CartHasItem = (props: Props) => {
             </ProductWrap>
             <TitleInfo>${product.price}</TitleInfo>
             <QuantityWrap>
-              <QuantityButtonStyled icon={<MinusOutlined />} />
-              <InputStyled />
-              <QuantityButtonStyled icon={<PlusOutlined />} />
+              <QuantityButtonStyled
+                icon={<MinusOutlined />}
+                onClick={() => {
+                  if (product.quantity <= 1) return;
+                  handlePlusOrSubtract(product.id, -1);
+                }}
+              />
+              <InputStyled
+                value={product.quantity}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (value <= 0 || !value) return;
+                  handleSetQuantity(product.id, value);
+                }}
+              />
+              <QuantityButtonStyled
+                icon={<PlusOutlined />}
+                onClick={() => handlePlusOrSubtract(product.id, +1)}
+              />
             </QuantityWrap>
             <TitleInfo style={{ justifyContent: 'center' }}>
               ${product.price * product.quantity}
             </TitleInfo>
-            <WrapDeleteButton>
+            <WrapDeleteButton onClick={() => handleRemoveProduct(product.id)}>
               <DeleteOutlined className="pointer" />
             </WrapDeleteButton>
           </ProductItem>

@@ -11,9 +11,13 @@ import {
 } from './InfoComponent.styled';
 import { Rate } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-type Props = {};
+import { IProduct } from 'models';
+type Props = {
+  product: IProduct;
+};
 
-const InfoComponent = (props: Props) => {
+const InfoComponent: React.FC<Props> = ({ product }) => {
+  console.log(product);
   const [quantity, setQuantity] = useState(1);
   const handleSetQuantity = (value: number) => {
     if (value === 0) return;
@@ -28,13 +32,16 @@ const InfoComponent = (props: Props) => {
   return (
     <InfoComponentWrap>
       <DescriptionsStyled title="Product Info">
-        <DescriptionsStyled.Item label="Name">Zhou Maomao</DescriptionsStyled.Item>
+        <DescriptionsStyled.Item label="Name">{product.name}</DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Rating">
           <Rate style={{ fontSize: 13 }} defaultValue={2} />
         </DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Shipping">Free Shipping</DescriptionsStyled.Item>
+        <DescriptionsStyled.Item label="Quantity">
+          {product.quantity}
+        </DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Price">
-          <PriceText>$1112</PriceText>
+          <PriceText>${product.price}</PriceText>
         </DescriptionsStyled.Item>
       </DescriptionsStyled>
       <BuyProductWrap>

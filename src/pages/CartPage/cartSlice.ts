@@ -14,6 +14,10 @@ export interface CartState {
   isNoItem: boolean;
   cartItems: Array<ProductCartItem>;
 }
+interface IComputed {
+  id: string | number;
+  quantity: number;
+}
 const productsCart: Array<ProductCartItem> = [
   {
     id: 1,
@@ -43,23 +47,32 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    showMiniCart(state) {
-      state.isNoItem = true;
-    },
-    hideMiniCart(state) {
-      state.isNoItem = false;
-    },
     addToCart: (state, action: PayloadAction<any>) => {
       state.cartItems.push(action.payload);
+      state.isNoItem = false;
     },
-    removeToCart(state, action: PayloadAction<any>) {
-      const idNeedToRemove = action.payload;
+
+    removeToCart(state, action: PayloadAction<{ id: number | string }>) {
+      const idNeedToRemove = action.payload.id;
       state.cartItems = state.cartItems.filter((x) => x.id !== idNeedToRemove);
+    },
+
+    computedToCart: (state, action: PayloadAction<IComputed>) => {
+      const product = state.cartItems.find((item) => item.id === action.payload.id);
+      if (!product) return;
+      product.quantity = product.quantity + action.payload.quantity;
+    },
+
+    setQuantityToCartById: (state, action: PayloadAction<IComputed>) => {
+      const product = state.cartItems.find((item) => item.id === action.payload.id);
+      if (!product) return;
+      product.quantity = action.payload.quantity;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { showMiniCart, hideMiniCart, addToCart } = cartSlice.actions;
+export const { addToCart, computedToCart, removeToCart, setQuantityToCartById } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

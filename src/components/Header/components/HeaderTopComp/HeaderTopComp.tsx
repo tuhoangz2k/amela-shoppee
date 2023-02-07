@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { checkHasToken } from 'utils';
 import {
   HeaderTopWrap,
   HeaderTopNav,
@@ -16,10 +17,12 @@ import {
   PoundCircleOutlined,
   ZhihuOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import images from 'assets/imgs';
 import useViewport from 'hooks/useViewport ';
-import { breakPonits } from 'constants/index';
+import { IMAGE_BASE_LINK, breakPonits, routePaths } from 'constants/index';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import userApi from 'api/userApi';
 
 interface IHeaderNavigated {
   label: string;
@@ -67,11 +70,47 @@ const HeaderNavigatedList: Array<IHeaderNavigated> = [
   },
 ];
 
-type Props = {};
+type Props = {
+  user: any;
+  refetchUser: Function;
+};
 
-const HeaderTopComp = (props: Props) => {
-  const [isLogin, setIsLogin] = useState(false);
+const HeaderTopComp: React.FC<Props> = ({ user, refetchUser }) => {
+  const hasToken = checkHasToken();
+  const navigated = useNavigate();
   const widthDevice = useViewport().width;
+  const userMutation = useMutation({
+    mutationFn: userApi.logout,
+    onSuccess: (data) => {
+      localStorage.removeItem('token');
+      navigated('/');
+    },
+  });
+  const handleLogOut = () => {
+    userMutation.mutate();
+    refetchUser();
+  };
+  const userNav: MenuProps['items'] = [
+    {
+      key: '77',
+      label: <Link to={routePaths.profile}>My Profile</Link>,
+    },
+    {
+      key: '88',
+      label: <Link to={routePaths.home}>Purchase</Link>,
+    },
+    {
+      key: '99',
+      label: (
+        <span
+          style={{ borderTop: '1px solid #333', display: 'block' }}
+          onClick={handleLogOut}
+        >
+          Log Out
+        </span>
+      ),
+    },
+  ];
   return (
     <HeaderTopWrap>
       {widthDevice >= breakPonits.sm && (
@@ -93,14 +132,22 @@ const HeaderTopComp = (props: Props) => {
         <Content hover>
           <Link to="/">Contact Us</Link>
         </Content>
-        {isLogin ? (
+        {hasToken && !!user ? (
           <>
-            <Content>
-              <UserAvatarWrap>
-                <UserAvatar src={images.avatar} />
-              </UserAvatarWrap>
-              user 1
-            </Content>
+            <DropdownStyled menu={{ items: userNav }}>
+              <Content>
+                <UserAvatarWrap>
+                  <UserAvatar
+                    src={
+                      user?.profile?.avatar
+                        ? `${IMAGE_BASE_LINK}${user.profile.avatar}`
+                        : images.avatarUser
+                    }
+                  />
+                </UserAvatarWrap>
+                {user?.user.name}
+              </Content>
+            </DropdownStyled>
           </>
         ) : (
           <>

@@ -3,6 +3,7 @@ import type { TabsProps } from 'antd';
 import { DetailPageWrap, ProductContainer, TabsStyled } from './DetailPage.styled';
 import CarouselLeft from './components/CarouselLeft/CarouselLeft';
 import InfoComponent from './components/InfoComponent/InfoComponent';
+import userApi from 'api/userApi';
 type Props = {};
 
 const DetailPage = (props: Props) => {

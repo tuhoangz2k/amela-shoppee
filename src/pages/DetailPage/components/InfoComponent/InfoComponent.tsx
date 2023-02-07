@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   InfoComponentWrap,
   DescriptionsStyled,
@@ -14,6 +14,17 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 type Props = {};
 
 const InfoComponent = (props: Props) => {
+  const [quantity, setQuantity] = useState(1);
+  const handleSetQuantity = (value: number) => {
+    if (value === 0) return;
+    if (value === -1 && quantity == 1) return;
+    setQuantity(value);
+  };
+  const handleComputedQuantity = (value: number) => {
+    if (value === 0) return;
+    if (value === -1 && quantity == 1) return;
+    setQuantity(quantity + value);
+  };
   return (
     <InfoComponentWrap>
       <DescriptionsStyled title="Product Info">
@@ -28,9 +39,18 @@ const InfoComponent = (props: Props) => {
       </DescriptionsStyled>
       <BuyProductWrap>
         <QuantityWrapper>
-          <QuantityButton icon={<MinusOutlined />}></QuantityButton>
-          <QuantityInput defaultValue={1} />
-          <QuantityButton icon={<PlusOutlined />}></QuantityButton>
+          <QuantityButton
+            onClick={() => handleComputedQuantity(-1)}
+            icon={<MinusOutlined />}
+          ></QuantityButton>
+          <QuantityInput
+            value={quantity}
+            onChange={(e) => handleSetQuantity(Number(e.target.value))}
+          />
+          <QuantityButton
+            onClick={() => handleComputedQuantity(1)}
+            icon={<PlusOutlined />}
+          ></QuantityButton>
         </QuantityWrapper>
         <AddToCartButton shape="round">Add To Cart</AddToCartButton>
       </BuyProductWrap>

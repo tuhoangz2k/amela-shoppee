@@ -22,4 +22,12 @@ export const ProductContainer = styled.div`
   }
 `;
 export const ProductDetailBottom = styled.div``;
-export const TabsStyled = styled(Tabs)``;
+export const TabsStyled = styled(Tabs)`
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  @media (max-width: ${breakPonits.md}px) {
+    width: 100%;
+  }
+`;

@@ -13,5 +13,8 @@ const userApi = {
   getUser() {
     return http.get('profile/getUser');
   },
+  updateProfile() {
+    return http.post('profile/updateUser');
+  },
 };
 export default userApi;

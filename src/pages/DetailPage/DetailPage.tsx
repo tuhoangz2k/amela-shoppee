@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabsProps, Skeleton } from 'antd';
+import { TabsProps } from 'antd';
 import { DetailPageWrap, ProductContainer, TabsStyled } from './DetailPage.styled';
 import CarouselLeft from './components/CarouselLeft/CarouselLeft';
 import InfoComponent from './components/InfoComponent/InfoComponent';

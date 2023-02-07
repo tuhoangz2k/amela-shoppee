@@ -32,16 +32,16 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
   return (
     <InfoComponentWrap>
       <DescriptionsStyled title="Product Info">
-        <DescriptionsStyled.Item label="Name">{product.name}</DescriptionsStyled.Item>
+        <DescriptionsStyled.Item label="Name">{product?.name}</DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Rating">
           <Rate style={{ fontSize: 13 }} defaultValue={2} />
         </DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Shipping">Free Shipping</DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Quantity">
-          {product.quantity}
+          {product?.quantity}
         </DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Price">
-          <PriceText>${product.price}</PriceText>
+          <PriceText>${product?.price}</PriceText>
         </DescriptionsStyled.Item>
       </DescriptionsStyled>
       <BuyProductWrap>

@@ -29,7 +29,7 @@ import {
   setQuantityToCartById,
   removeToCart,
 } from 'pages/CartPage/cartSlice';
-
+import { IMAGE_BASE_LINK } from 'constants/index';
 type Props = {};
 
 const CartHasItem = (props: Props) => {
@@ -50,7 +50,6 @@ const CartHasItem = (props: Props) => {
   const handleRemoveProduct = (id: string | number) => {
     dispatch(removeToCart({ id }));
   };
-
   return (
     <CartHasItemWrap>
       <CartTitle>Cart</CartTitle>
@@ -66,12 +65,12 @@ const CartHasItem = (props: Props) => {
           <span>Total Price</span>
           <DeleteOutlined className="pointer" />
         </TitleColumn>
-        {cartProducts.map((product) => (
+        {cartProducts.map((product, index) => (
           <ProductItem key={product.id}>
             <ProductWrap>
               <Radio />
               <ProductInfoWrap>
-                <Img src={product.imageLink} />
+                <Img src={`${IMAGE_BASE_LINK}${product?.images?.[0]['image']}`} />
                 <ProductInfo>
                   <TitleInfo color="black">{product.name}</TitleInfo>
                 </ProductInfo>
@@ -82,27 +81,27 @@ const CartHasItem = (props: Props) => {
               <QuantityButtonStyled
                 icon={<MinusOutlined />}
                 onClick={() => {
-                  if (product.quantity <= 1) return;
-                  handlePlusOrSubtract(product.id, -1);
+                  if (product.cartQuantity <= 1) return;
+                  handlePlusOrSubtract(product.id as string, -1);
                 }}
               />
               <InputStyled
-                value={product.quantity}
+                value={product.cartQuantity}
                 onChange={(e) => {
                   const value = Number(e.target.value);
                   if (value <= 0 || !value) return;
-                  handleSetQuantity(product.id, value);
+                  handleSetQuantity(product.id as string, value);
                 }}
               />
               <QuantityButtonStyled
                 icon={<PlusOutlined />}
-                onClick={() => handlePlusOrSubtract(product.id, +1)}
+                onClick={() => handlePlusOrSubtract(product.id as string, +1)}
               />
             </QuantityWrap>
             <TitleInfo style={{ justifyContent: 'center' }}>
-              ${product.price * product.quantity}
+              ${product.price * product.cartQuantity}
             </TitleInfo>
-            <WrapDeleteButton onClick={() => handleRemoveProduct(product.id)}>
+            <WrapDeleteButton onClick={() => handleRemoveProduct(product.id as string)}>
               <DeleteOutlined className="pointer" />
             </WrapDeleteButton>
           </ProductItem>

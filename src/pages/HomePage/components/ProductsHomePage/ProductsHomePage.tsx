@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { breakPonits } from 'constants/index';
+import { breakPonits, Test } from 'constants/index';
 
 import { Pagination, Navigation } from 'swiper';
 
@@ -15,19 +15,15 @@ import {
 
 import CardProduct from 'components/CardProduct';
 import useViewport from 'hooks/useViewport ';
-
-type Product = {
-  imageLink: string;
-  name: string;
-  price: number;
-  to: string;
-};
+import { IProductList } from 'models';
+import SkeletonCard from 'components/SkeletonCard';
 type Props = {
   title: string;
-  products: Array<Product>;
+  products: Array<IProductList>;
+  isLoading: boolean;
 };
 
-const ProductsHomePage: React.FC<Props> = ({ title, products }) => {
+const ProductsHomePage: React.FC<Props> = ({ title, products = [], isLoading }) => {
   const widthDevice = useViewport().width;
   const [slide, setSlide] = useState(4);
   useEffect(() => {
@@ -39,6 +35,7 @@ const ProductsHomePage: React.FC<Props> = ({ title, products }) => {
       setSlide(1);
     }
   }, [widthDevice]);
+  console.log(isLoading);
   return (
     <ProductsHomePageWrap>
       <TitleStyled>{title}</TitleStyled>
@@ -49,11 +46,18 @@ const ProductsHomePage: React.FC<Props> = ({ title, products }) => {
         navigation={true}
         className="mySwiper"
       >
-        {products.map((product) => (
-          <SwiperSlideStyled key={product.name}>
-            <CardProduct product={product} />
-          </SwiperSlideStyled>
-        ))}
+        {!isLoading &&
+          products.map((product) => (
+            <SwiperSlideStyled key={product.id}>
+              <CardProduct product={product} />
+            </SwiperSlideStyled>
+          ))}
+        {isLoading &&
+          Test.map((product) => (
+            <SwiperSlideStyled key={product}>
+              <SkeletonCard />
+            </SwiperSlideStyled>
+          ))}
       </SwiperStyled>
     </ProductsHomePageWrap>
   );

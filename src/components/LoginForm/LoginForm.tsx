@@ -31,7 +31,9 @@ const LoginForm: React.FC<Props> = ({}) => {
     mutationFn: (data: IUserLogin) => userApi.login(data),
     onSuccess: (data) => {
       localStorage.setItem('token', data.data.authorisation.token);
-      navigate(routePaths.home);
+      setTimeout(() => {
+        navigate(routePaths.home);
+      }, 300);
     },
     onError: (error: any) => {
       if (error.response.status === 401) {

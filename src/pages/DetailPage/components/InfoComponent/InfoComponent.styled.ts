@@ -63,3 +63,19 @@ export const AddToCartButton = styled(Button)`
     color: white !important;
   }
 `;
+
+export const OriginPrice = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  color: ${colors['gray-3']};
+  text-decoration: line-through;
+`;
+export const Discount = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  padding: 2px 8px;
+  margin-left: 4px;
+  background-color: ${colors.red};
+  border-radius: 4px;
+`;

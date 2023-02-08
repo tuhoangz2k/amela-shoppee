@@ -8,17 +8,22 @@ import {
   QuantityInput,
   QuantityButton,
   AddToCartButton,
+  OriginPrice,
+  Discount,
 } from './InfoComponent.styled';
 import { Rate } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { IProduct } from 'models';
+import { useAppDispatch } from 'hooks/reduxHooks';
+import { addToCart } from 'pages/CartPage/cartSlice';
 type Props = {
   product: IProduct;
 };
 
 const InfoComponent: React.FC<Props> = ({ product }) => {
-  console.log(product);
   const [quantity, setQuantity] = useState(1);
+  console.log(product);
+  const dispatch = useAppDispatch();
   const handleSetQuantity = (value: number) => {
     if (value === 0) return;
     if (value === -1 && quantity == 1) return;
@@ -28,6 +33,9 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
     if (value === 0) return;
     if (value === -1 && quantity == 1) return;
     setQuantity(quantity + value);
+  };
+  const handleAddtoCart = () => {
+    dispatch(addToCart({ ...product, cartQuantity: quantity }));
   };
   return (
     <InfoComponentWrap>
@@ -41,7 +49,18 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
           {product?.quantity}
         </DescriptionsStyled.Item>
         <DescriptionsStyled.Item label="Price">
-          <PriceText>${product?.price}</PriceText>
+          <PriceText>
+            {product?.discount ? (
+              <>
+                <OriginPrice>${product?.price}</OriginPrice>$
+                {product?.price * product?.discount}
+              </>
+            ) : (
+              `$${product?.price}`
+            )}
+
+            <Discount>{product?.discount ? product?.discount : 0}%</Discount>
+          </PriceText>
         </DescriptionsStyled.Item>
       </DescriptionsStyled>
       <BuyProductWrap>
@@ -59,7 +78,9 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
             icon={<PlusOutlined />}
           ></QuantityButton>
         </QuantityWrapper>
-        <AddToCartButton shape="round">Add To Cart</AddToCartButton>
+        <AddToCartButton shape="round" onClick={handleAddtoCart}>
+          Add To Cart
+        </AddToCartButton>
       </BuyProductWrap>
     </InfoComponentWrap>
   );

@@ -11,7 +11,7 @@ const Header = (props: Props) => {
   const user = useQuery({
     queryKey: ['user'],
     queryFn: userApi.getUser,
-    retry: false,
+    retry: 2,
     staleTime: 60 * 1000,
     onError: (err) => {
       console.log(err);

@@ -33,7 +33,9 @@ const RegisterForm: React.FC<Props> = ({}) => {
     mutationFn: (data: IUserRegister) => userApi.register(data),
     onSuccess: (data) => {
       localStorage.setItem('token', data.data.authorisation.token);
-      navigate(routePaths.home);
+      setTimeout(() => {
+        navigate(routePaths.home);
+      }, 300);
     },
     onError: (error: any) => {
       if (error.response.status === 401) {
@@ -48,9 +50,7 @@ const RegisterForm: React.FC<Props> = ({}) => {
     registerMatation.mutate(values);
   };
   console.log(registerMatation.isLoading);
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo: any) => {};
   if (hasToken) return <Navigate to={routePaths.home} replace={true} />;
   const validateMessages = {
     required: "'${email}' is required111111111!",

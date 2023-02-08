@@ -1,5 +1,5 @@
 import { IProductList } from 'models';
-export const products: Array<IProductList> = [
+export const products: Array<any> = [
   {
     id: 1,
     name: "air's shirt",

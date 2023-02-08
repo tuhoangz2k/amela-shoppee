@@ -37,6 +37,8 @@ import ProductsHomePage from './components/ProductsHomePage';
 import Feedback from './components/Feedback';
 import { Customer } from './components/Feedback/FeedBack';
 import Partners from './components/Partners';
+import { useQuery } from '@tanstack/react-query';
+import productsApi from 'api/productsApi';
 
 const policyList = [
   {
@@ -121,6 +123,7 @@ const customerFeedback: Array<Customer> = [
       'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters',
   },
 ];
+
 const partners = [
   { imgLink: imgs.partner1 },
   { imgLink: imgs.partner2 },
@@ -132,6 +135,11 @@ const partners = [
 ];
 type Props = {};
 const HomePage = (props: Props) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['productsNew'],
+    queryFn: () => productsApi.getProductList({ time: 'newest', limit: 5 }),
+  });
+  const newProducts = data?.data?.data;
   return (
     <Wrapper>
       <BannerWrap>
@@ -189,7 +197,11 @@ const HomePage = (props: Props) => {
       </SubBanner>
       <SectionStyled>
         <ContentContainer>
-          <ProductsHomePage title="TOP PRODUCTS" products={produtcs} />
+          <ProductsHomePage
+            title="TOP PRODUCTS"
+            products={newProducts}
+            isLoading={isLoading}
+          />
         </ContentContainer>
       </SectionStyled>
       <BannerStyled>
@@ -219,7 +231,7 @@ const HomePage = (props: Props) => {
       </BannerStyled>
       <SectionStyled>
         <ContentContainer>
-          <ProductsHomePage title="LATEST" products={produtcs} />
+          <ProductsHomePage title="LATEST" products={newProducts} isLoading={isLoading} />
         </ContentContainer>
       </SectionStyled>
       <SectionStyled bg="#f8f8f8;">

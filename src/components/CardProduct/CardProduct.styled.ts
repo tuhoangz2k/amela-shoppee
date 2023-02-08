@@ -8,8 +8,11 @@ export const CardWrap = styled.div`
   cursor: pointer;
   color: ${colors.textColor};
   text-align: center;
+  height: 460px;
 `;
-export const ImageWrap = styled.div``;
+export const ImageWrap = styled.div`
+  height: 400px;
+`;
 export const Img = styled.img`
   width: 100%;
   height: 100%;

@@ -7,73 +7,27 @@ import {
   ButtonClose,
 } from './SearchInput.styled';
 import { TreeSelect } from 'antd';
+import { routePaths, treeData } from 'constants/index';
 import { CloseOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
 type Props = {
   onToggle: Function;
 };
 
-const treeData = [
-  {
-    title: 'All Categories',
-    value: 'all',
-  },
-  {
-    title: 'Women',
-    value: 'women',
-    children: [
-      {
-        title: 'Modest Fashion',
-        value: 'modest',
-        children: [
-          {
-            title: 'Baby Suit',
-            value: 'baby',
-          },
-          {
-            title: 'Jacket For Women',
-            value: 'jacket',
-          },
-          {
-            title: 'Jogers',
-            value: 'jogers',
-          },
-          {
-            title: 'T-shirt',
-            value: 'tshirt',
-          },
-        ],
-      },
-      {
-        title: 'Child',
-        value: 'preppy',
-      },
-      {
-        title: 'Office',
-        value: 'w-office',
-      },
-      {
-        title: 'Capree',
-        value: 'capree',
-      },
-    ],
-  },
-  {
-    title: 'Office Wear',
-    value: 'office',
-  },
-  {
-    title: 'products',
-    value: 'products',
-  },
-];
-
 const SearchInput: React.FC<Props> = ({ onToggle }) => {
   const [value, setValue] = useState<string>('all');
+  const navigated = useNavigate();
   const onChange = (newValue: string) => {
-    console.log(newValue);
     setValue(newValue);
   };
-  const onSearch = (value: string) => console.log(value);
+  const [searchInputValue, setsearchInputValue] = useState('');
+  const onSearch = (value: string) => {
+    navigated({
+      pathname: routePaths.products,
+      search: queryString.stringify({ search: value }),
+    });
+  };
   return (
     <SearchInputWrap>
       <Container>
@@ -87,7 +41,13 @@ const SearchInput: React.FC<Props> = ({ onToggle }) => {
             onChange={onChange}
           />
         </CategoriesWrap>
-        <SearchStyled placeholder="Search" allowClear onSearch={onSearch} />
+        <SearchStyled
+          placeholder="Search"
+          allowClear
+          onSearch={onSearch}
+          value={searchInputValue}
+          onChange={(e) => setsearchInputValue(e.target.value)}
+        />
         <ButtonClose onClick={() => onToggle(false)}>
           <CloseOutlined style={{ fontSize: 20 }} />
         </ButtonClose>

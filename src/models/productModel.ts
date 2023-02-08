@@ -1,10 +1,3 @@
-export interface IProductList {
-  id?: number | string;
-  imageLink: string;
-  name: string;
-  price: number;
-  to: string;
-}
 type Images = {
   id: number | string;
   product_id: number | string;
@@ -12,13 +5,26 @@ type Images = {
   created_at: string;
   updated_at: string;
 };
+export interface IProductList {
+  id?: string | number;
+  name: string;
+  price: number;
+  description: string;
+  quantity: number;
+  created_at?: string;
+  updated_at?: string;
+  image?: Images;
+  discount: number | null;
+}
 export interface IProduct {
+  id?: string | number;
   imageUrl: string;
   name: string;
   price: number;
   description: string;
-  quantity?: number;
+  quantity: number;
   created_at?: string;
   updated_at?: string;
   images?: Array<Images>;
+  discount: number | null;
 }

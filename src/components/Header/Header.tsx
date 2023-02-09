@@ -11,11 +11,12 @@ const Header = (props: Props) => {
   const user = useQuery({
     queryKey: ['user'],
     queryFn: userApi.getUser,
-    retry: 2,
+    retry: 3,
     staleTime: 60 * 1000,
     onError: (err) => {
       console.log(err);
     },
+    retryDelay: 500,
   });
   return (
     <>

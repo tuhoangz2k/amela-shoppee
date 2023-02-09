@@ -19,15 +19,18 @@ import {
   BuyButton,
   TitleBuy,
   Container,
+  CheckboxStyled,
 } from './CartHasItem.styled';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import { cartItemTotal, cartItemsSelector } from 'app/cartSelector';
-import { Radio } from 'antd';
+import { cartItemTotal, cartItemsSelector, isChekedAll } from 'app/cartSelector';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   computedToCart,
   setQuantityToCartById,
   removeToCart,
+  changeCartChecked,
+  toggleCheckedAll,
+  removeAll,
 } from 'pages/CartPage/cartSlice';
 import { IMAGE_BASE_LINK } from 'constants/index';
 type Props = {};
@@ -36,19 +39,28 @@ const CartHasItem = (props: Props) => {
   const cartProducts = useAppSelector(cartItemsSelector);
   const dispatch = useAppDispatch();
   const total = useAppSelector(cartItemTotal);
-  const [selectAll, setSelectAll] = useState(true);
-
+  const isCheckAll = useAppSelector(isChekedAll);
   const handlePlusOrSubtract = (id: string | number, n: number) => {
     dispatch(computedToCart({ id: id, quantity: n }));
   };
 
   const handleSetQuantity = (id: string | number, n: number) => {
     if (0) return;
+
     dispatch(setQuantityToCartById({ id: id, quantity: n }));
   };
 
   const handleRemoveProduct = (id: string | number) => {
     dispatch(removeToCart({ id }));
+  };
+  const handleOnchange = (id: number | string) => {
+    dispatch(changeCartChecked(id));
+  };
+  const handleToggleAll = (value: boolean) => {
+    dispatch(toggleCheckedAll(value));
+  };
+  const handleRemoveAll = () => {
+    dispatch(removeAll());
   };
   return (
     <CartHasItemWrap>
@@ -56,27 +68,38 @@ const CartHasItem = (props: Props) => {
       <ProductCartWrap>
         <TitleColumn>
           <span>
-            <Radio checked={selectAll} onClick={() => setSelectAll(!selectAll)}>
+            <CheckboxStyled
+              checked={isCheckAll}
+              onChange={() => handleToggleAll(!isCheckAll)}
+            >
               Product
-            </Radio>
+            </CheckboxStyled>
           </span>
           <span>Unit Price</span>
           <span>Quantity</span>
           <span>Total Price</span>
-          <DeleteOutlined className="pointer" />
+          <DeleteOutlined className="pointer" onClick={handleRemoveAll} />
         </TitleColumn>
         {cartProducts.map((product, index) => (
           <ProductItem key={product.id}>
             <ProductWrap>
-              <Radio />
+              <CheckboxStyled
+                onChange={(e) => handleOnchange(product.id as number)}
+                checked={product.isCkecked}
+              />
               <ProductInfoWrap>
-                <Img src={`${IMAGE_BASE_LINK}${product?.images?.[0]['image']}`} />
+                <Img src={`${IMAGE_BASE_LINK}${product?.images?.[0]?.['image']}`} />
                 <ProductInfo>
                   <TitleInfo color="black">{product.name}</TitleInfo>
                 </ProductInfo>
               </ProductInfoWrap>
             </ProductWrap>
-            <TitleInfo>${product.price}</TitleInfo>
+            <TitleInfo>
+              $
+              {product.discount
+                ? (product?.price - product?.price * (product?.discount / 100)).toFixed(1)
+                : product.price}
+            </TitleInfo>
             <QuantityWrap>
               <QuantityButtonStyled
                 icon={<MinusOutlined />}
@@ -99,7 +122,11 @@ const CartHasItem = (props: Props) => {
               />
             </QuantityWrap>
             <TitleInfo style={{ justifyContent: 'center' }}>
-              ${product.price * product.cartQuantity}
+              $
+              {product.discount
+                ? product.cartQuantity *
+                  (product.price - (product.price * product.discount) / 100)
+                : product.price * product.cartQuantity}
             </TitleInfo>
             <WrapDeleteButton onClick={() => handleRemoveProduct(product.id as string)}>
               <DeleteOutlined className="pointer" />

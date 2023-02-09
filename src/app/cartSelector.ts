@@ -12,8 +12,17 @@ const cartItemsCount = createSelector(cartItemsSelector, (cartItems) =>
 
 const cartItemTotal = createSelector(cartItemsSelector, (cartItems) =>
   cartItems.reduce((total, item) => {
-    return total + item.cartQuantity * item.price;
+    if (!item.isCkecked) return total;
+    return item.discount
+      ? total + item.cartQuantity * (item?.price - item?.price * (item?.discount / 100))
+      : total + item.cartQuantity * item.price;
   }, 0),
 );
 
-export { cartItemsCount, cartItemsSelector, isCartNoItem, cartItemTotal };
+const isChekedAll = createSelector(cartItemsSelector, (cartItems) =>
+  cartItems.every((item) => {
+    return item.isCkecked;
+  }),
+);
+
+export { cartItemsCount, cartItemsSelector, isCartNoItem, cartItemTotal, isChekedAll };

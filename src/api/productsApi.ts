@@ -9,7 +9,9 @@ const productsApi = {
     if (!params?.limit && params) {
       params.limit = 12;
     }
-    console.log();
+    if (!params?.price && params) {
+      params.price = 'asc';
+    }
     return http.get(`products`, { params });
   },
 };

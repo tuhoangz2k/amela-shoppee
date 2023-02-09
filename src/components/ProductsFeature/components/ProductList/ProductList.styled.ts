@@ -1,5 +1,6 @@
 import { colors, breakPonits } from 'constants/index';
-import { Select, Pagination } from 'antd';
+import { Select, Pagination, Input, Button } from 'antd';
+
 import styled from 'styled-components';
 export const ProductListWrap = styled.div`
   flex: 1;
@@ -38,4 +39,15 @@ export const PaginationStyled = styled(Pagination)``;
 export const ContainerStyled = styled.div`
   text-align: center;
   margin-bottom: 30px;
+`;
+export const PriceSortWrap = styled.div`
+  display: flex;
+`;
+
+export const InputStyled = styled(Input)``;
+export const ButtonStyled = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
 `;

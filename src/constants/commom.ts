@@ -2,7 +2,6 @@ import { TabsProps } from 'antd';
 export const PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 export const IMAGE_BASE_LINK = 'http://vu.fresher.ameladev.click/uploads/';
 export const options = [
-  { value: 'all', label: 'All' },
   { value: 'asc', label: 'Asc' },
   { value: 'desc', label: 'Desc' },
 ];

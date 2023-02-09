@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input, Button } from 'antd';
+import { Input, Button, Checkbox } from 'antd';
 import { breakPonits, colors } from 'constants/index';
 type TTitle = {
   color?: string;
@@ -61,11 +61,17 @@ export const ProductWrap = styled.div`
 `;
 export const ProductInfoWrap = styled.div`
   display: flex;
+  @media (max-width: ${breakPonits.sm}px) {
+    flex-direction: column;
+  }
 `;
 export const TitleInfo = styled.p`
   display: flex;
   align-items: center;
-
+  margin: 0;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   color: ${(prop: TTitle) => prop.color};
   font-size: ${(prop: TTitle) => prop.fontSize || 16}px;
   font-weight: ${(prop: TTitle) => prop.fontWeight || 400}px;
@@ -76,6 +82,10 @@ export const ProductInfo = styled.div`
 export const Img = styled.img`
   height: 100%;
   object-fit: cover;
+  @media (max-width: ${breakPonits.sm}px) {
+    height: 70%;
+    width: 100%;
+  }
 `;
 export const WrapDeleteButton = styled.span`
   display: flex;
@@ -85,6 +95,9 @@ export const WrapDeleteButton = styled.span`
 export const QuantityWrap = styled.div`
   display: flex;
   align-items: center;
+  @media (max-width: ${breakPonits.sm}px) {
+    flex-direction: column;
+  }
 `;
 export const InputStyled = styled(Input)`
   flex: 1;
@@ -95,6 +108,9 @@ export const InputStyled = styled(Input)`
 `;
 export const QuantityButtonStyled = styled(Button)`
   width: 30px;
+  @media (max-width: ${breakPonits.sm}px) {
+    width: 100% !important;
+  }
 `;
 
 export const WrapperBuy = styled.div`
@@ -110,6 +126,9 @@ export const WrapperBuy = styled.div`
 export const TitleBuy = styled.p`
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   & span {
     color: ${colors.red};
     font-size: 22px;
@@ -134,4 +153,8 @@ export const Container = styled.div`
   @media (max-width: ${breakPonits.sm}px) {
     display: flex;
   }
+`;
+export const CheckboxStyled = styled(Checkbox)`
+  align-items: center !important;
+  margin-right: 5px;
 `;

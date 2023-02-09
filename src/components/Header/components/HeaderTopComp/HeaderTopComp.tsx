@@ -140,12 +140,12 @@ const HeaderTopComp: React.FC<Props> = ({ user, refetchUser }) => {
                   <UserAvatar
                     src={
                       user?.profile?.avatar
-                        ? `${IMAGE_BASE_LINK}${user.profile.avatar}`
-                        : images.avatarUser
+                        ? `${IMAGE_BASE_LINK}${user?.profile?.avatar}`
+                        : images?.avatarUser
                     }
                   />
                 </UserAvatarWrap>
-                {user?.user.name}
+                {user?.user?.name}
               </Content>
             </DropdownStyled>
           </>

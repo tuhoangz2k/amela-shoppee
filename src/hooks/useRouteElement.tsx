@@ -9,6 +9,7 @@ import HomePage from 'pages/HomePage';
 import ProductPage from 'pages/ProductPage';
 import CartPage from 'pages/CartPage';
 import DetailPage from 'pages/DetailPage';
+import NotFoundPage from 'pages/NotFoundPage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -66,6 +67,11 @@ const useRouteElement = () => {
           <DetailPage />
         </MainLayout>
       ),
+    },
+
+    {
+      path: routePaths.notFound,
+      element: <NotFoundPage />,
     },
   ]);
 

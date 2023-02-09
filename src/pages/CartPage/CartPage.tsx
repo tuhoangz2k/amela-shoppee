@@ -8,9 +8,9 @@ import { isCartNoItem } from 'app/cartSelector';
 type Props = {};
 
 const CartPage = (props: Props) => {
-  const hasCartItem = useAppSelector(isCartNoItem);
+  const hasNoCartItem = useAppSelector(isCartNoItem);
 
-  return <CartPageWrap>{!hasCartItem ? <NoCartItem /> : <CartHasItem />}</CartPageWrap>;
+  return <CartPageWrap>{hasNoCartItem ? <NoCartItem /> : <CartHasItem />}</CartPageWrap>;
 };
 
 export default CartPage;

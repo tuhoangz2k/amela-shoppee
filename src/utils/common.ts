@@ -11,3 +11,7 @@ export const hasCart = () => {
 export const getCart = (): Array<IProductListCart> => {
   return JSON.parse(localStorage.getItem('cart') as string);
 };
+
+export const removeCartStore = () => {
+  localStorage.removeItem('cart');
+};

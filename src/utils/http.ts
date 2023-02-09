@@ -22,7 +22,6 @@ class Http {
             `Bearer ${this.access_token}`,
           );
         }
-
         return config;
       },
       function (error) {

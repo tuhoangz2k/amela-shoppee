@@ -8,4 +8,7 @@ export const CarouselLeftWrap = styled.div`
   @media (max-width: ${breakPonits.md}px) {
     width: 100%;
   }
+  & .thumbnail {
+    max-height: 200px;
+  }
 `;

@@ -22,11 +22,11 @@ type Props = {
 
 const InfoComponent: React.FC<Props> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
-  console.log(product);
   const dispatch = useAppDispatch();
   const handleSetQuantity = (value: number) => {
     if (value === 0) return;
     if (value === -1 && quantity == 1) return;
+    if (value > product.quantity) return;
     setQuantity(value);
   };
   const handleComputedQuantity = (value: number) => {
@@ -53,7 +53,7 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
             {product?.discount ? (
               <>
                 <OriginPrice>${product?.price}</OriginPrice>$
-                {product?.price * product?.discount}
+                {(product?.price - product?.price * (product?.discount / 100)).toFixed(2)}
               </>
             ) : (
               `$${product?.price}`

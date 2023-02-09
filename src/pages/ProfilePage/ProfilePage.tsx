@@ -38,6 +38,7 @@ const ProfilePage = (props: Props) => {
       localStorage.removeItem('token');
       navigated('/');
     },
+    retryDelay: 500,
   });
 
   const updateMutation = useMutation({ mutationFn: userApi.updateProfile });

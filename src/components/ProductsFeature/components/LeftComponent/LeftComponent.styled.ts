@@ -4,6 +4,7 @@ export const LeftComponentWrap = styled.div`
   width: 25%;
   padding-left: 15px;
   padding-right: 15px;
+  margin-top: 30px;
   @media (max-width: ${breakPonits.mdp}px) {
     display: none;
   }

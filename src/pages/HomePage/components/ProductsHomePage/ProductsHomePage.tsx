@@ -35,7 +35,6 @@ const ProductsHomePage: React.FC<Props> = ({ title, products = [], isLoading }) 
       setSlide(1);
     }
   }, [widthDevice]);
-  console.log(isLoading);
   return (
     <ProductsHomePageWrap>
       <TitleStyled>{title}</TitleStyled>

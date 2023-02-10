@@ -24,5 +24,23 @@ const isChekedAll = createSelector(cartItemsSelector, (cartItems) =>
     return item.isCkecked;
   }),
 );
+const isCheckedSomeItem = createSelector(cartItemsSelector, (cartItems) =>
+  cartItems.some((item) => {
+    return item.isCkecked;
+  }),
+);
+const newProductList = createSelector(cartItemsSelector, (cartItems) =>
+  cartItems.map((item) => {
+    return { product_id: item.id, quantity: item.cartQuantity };
+  }),
+);
 
-export { cartItemsCount, cartItemsSelector, isCartNoItem, cartItemTotal, isChekedAll };
+export {
+  cartItemsCount,
+  cartItemsSelector,
+  isCartNoItem,
+  cartItemTotal,
+  isChekedAll,
+  isCheckedSomeItem,
+  newProductList,
+};

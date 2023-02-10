@@ -13,19 +13,32 @@ import {
   LabelNavigate,
 } from './LoginForm.styled';
 import { routePaths } from 'constants/index';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { checkHasToken } from 'utils';
 import { LoadingOutlined } from '@ant-design/icons';
 
 type Props = {};
-type ErrorFormType = {
-  status: 'error' | 'success' | 'validating' | 'warning' | undefined;
-  message: string;
-};
 
 const LoginForm: React.FC<Props> = ({}) => {
   const [form] = FormStyled.useForm();
   const hasToken = checkHasToken();
+  const queryClient = useQueryClient();
+  const [isLogin, setIsLogin] = useState(!!queryClient.getQueryData(['user']));
+  if (hasToken) {
+    (async () => {
+      try {
+        await queryClient.prefetchQuery(['user'], {
+          queryFn: () => userApi.getUser(),
+        });
+        const isLogin: any = queryClient.getQueryData(['user']);
+        if (isLogin?.status) {
+          setIsLogin(true);
+        }
+      } catch (error) {
+        setIsLogin(false);
+      }
+    })();
+  }
   const navigate = useNavigate();
   const loginMatation = useMutation({
     mutationFn: (data: IUserLogin) => userApi.login(data),
@@ -49,8 +62,9 @@ const LoginForm: React.FC<Props> = ({}) => {
     loginMatation.mutate(values);
   };
 
+  console.log(isLogin);
   const onFinishFailed = (errorInfo: any) => {};
-  if (hasToken) return <Navigate to={routePaths.home} replace={true} />;
+  if (isLogin) return <Navigate to={routePaths.home} replace={true} />;
 
   return (
     <LoginformContainer>

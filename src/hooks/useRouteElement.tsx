@@ -10,6 +10,7 @@ import ProductPage from 'pages/ProductPage';
 import CartPage from 'pages/CartPage';
 import DetailPage from 'pages/DetailPage';
 import NotFoundPage from 'pages/NotFoundPage';
+import PaymentPage from 'pages/PaymentPage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -72,6 +73,14 @@ const useRouteElement = () => {
     {
       path: routePaths.notFound,
       element: <NotFoundPage />,
+    },
+    {
+      path: routePaths.payment,
+      element: (
+        <MainLayout>
+          <PaymentPage />
+        </MainLayout>
+      ),
     },
   ]);
 

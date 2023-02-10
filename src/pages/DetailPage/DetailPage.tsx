@@ -1,15 +1,16 @@
 import React from 'react';
+import { TabsProps } from 'antd';
 import { DetailPageWrap, ProductContainer, TabsStyled } from './DetailPage.styled';
 import CarouselLeft from './components/CarouselLeft/CarouselLeft';
 import InfoComponent from './components/InfoComponent/InfoComponent';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import productsApi from 'api/productsApi';
-import { items } from 'constants/index';
 type Props = {};
 
 const DetailPage = (props: Props) => {
   const id = useParams().id;
+
   const productDetail = useQuery({
     queryKey: ['product', id],
     queryFn: (context) => {
@@ -17,6 +18,19 @@ const DetailPage = (props: Props) => {
     },
     staleTime: 60 * 5 * 1000,
   });
+
+  const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: `DESCRIPTION`,
+      children: productDetail?.data?.data.description || `Content of Tab Pane 1`,
+    },
+    {
+      key: '2',
+      label: `REVIEWS`,
+      children: `This is Review`,
+    },
+  ];
 
   const onChange = (key: string) => {
     console.log(key);

@@ -18,17 +18,12 @@ import userApi from 'api/userApi';
 import { LoadingOutlined } from '@ant-design/icons';
 
 type Props = {};
-type ErrorFormType = {
-  status: 'error' | 'success' | 'validating' | 'warning' | undefined;
-  message: string;
-};
+
 const RegisterForm: React.FC<Props> = ({}) => {
   const hasToken = checkHasToken();
   const navigate = useNavigate();
-  const [errorAntd, setErrorAntd] = useState<ErrorFormType>({
-    status: undefined,
-    message: '',
-  });
+  const [form] = FormStyled.useForm();
+
   const registerMatation = useMutation({
     mutationFn: (data: IUserRegister) => userApi.register(data),
     onSuccess: (data) => {
@@ -38,11 +33,8 @@ const RegisterForm: React.FC<Props> = ({}) => {
       }, 300);
     },
     onError: (error: any) => {
-      if (error.response.status === 401) {
-        setErrorAntd({
-          status: 'error',
-          message: 'Your account or password is incorrect',
-        });
+      if (error.response.status === 422) {
+        form.setFields([{ name: 'email', errors: ['Email already exists'] }]);
       }
     },
   });
@@ -52,10 +44,7 @@ const RegisterForm: React.FC<Props> = ({}) => {
   console.log(registerMatation.isLoading);
   const onFinishFailed = (errorInfo: any) => {};
   if (hasToken) return <Navigate to={routePaths.home} replace={true} />;
-  const validateMessages = {
-    required: "'${email}' is required111111111!",
-    // ...
-  };
+
   return (
     <RegisterformContainer>
       <RegisterLabel>Register</RegisterLabel>
@@ -65,7 +54,7 @@ const RegisterForm: React.FC<Props> = ({}) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        validateMessages={validateMessages}
+        form={form}
       >
         <FormStyled.Item
           label="Username"
@@ -111,7 +100,7 @@ const RegisterForm: React.FC<Props> = ({}) => {
           ]}
           hasFeedback
         >
-          <InputStyled placeholder="Address" />
+          <InputStyled placeholder="Full name" />
         </FormStyled.Item>
 
         <LabelNavigate>

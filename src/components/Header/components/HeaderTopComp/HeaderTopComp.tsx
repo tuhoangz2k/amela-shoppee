@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { checkHasToken } from 'utils';
+import { checkHasToken, removeCartStore } from 'utils';
 import {
   HeaderTopWrap,
   HeaderTopNav,
@@ -89,6 +89,7 @@ const HeaderTopComp: React.FC<Props> = ({ user, refetchUser }) => {
   const handleLogOut = () => {
     userMutation.mutate();
     refetchUser();
+    removeCartStore();
   };
   const userNav: MenuProps['items'] = [
     {

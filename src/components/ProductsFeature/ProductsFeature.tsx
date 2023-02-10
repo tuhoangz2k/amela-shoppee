@@ -20,22 +20,26 @@ const ProductsFeature: React.FC<Props> = () => {
     queryKey: ['products', location.search],
     queryFn: () => productsApi.getProductList(filter),
   });
+
   const handleOnchange = (value: string) => {
     navigate({
       search: queryString.stringify({ ...filter, price: value, page: 1 }),
     });
   };
+
   const handleApplyPrice = () => {
     if (priceSort.price_from > priceSort.price_to) return;
     navigate({
       search: queryString.stringify({ ...filter, ...priceSort, page: 1 }),
     });
   };
+
   const handleChanPage = (page: number) => {
     navigate({
       search: queryString.stringify({ ...filter, page }),
     });
   };
+
   return (
     <Wrapper>
       <LeftComponent />

@@ -11,5 +11,6 @@ export const routePaths = {
   casual: '/',
   products: '/products',
   detail: '/products/:id',
+  payment: '/payment',
   notFound: '*',
 } as const;

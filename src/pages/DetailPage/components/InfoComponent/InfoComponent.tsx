@@ -16,6 +16,8 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { IProduct } from 'models';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { addToCart } from 'pages/CartPage/cartSlice';
+import { useSelector } from 'react-redux';
+import { cartItemsSelector } from 'app/cartSelector';
 type Props = {
   product: IProduct;
 };
@@ -23,6 +25,10 @@ type Props = {
 const InfoComponent: React.FC<Props> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
+  const cartItems = useSelector(cartItemsSelector);
+  const item =
+    cartItems.length > 0 ? cartItems.find((item) => item?.id === product?.id) : 0;
+  const CartQuantity = item ? item.cartQuantity : 0;
   const handleSetQuantity = (value: number) => {
     if (value === 0) return;
     if (value === -1 && quantity == 1) return;
@@ -35,6 +41,7 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
     setQuantity(quantity + value);
   };
   const handleAddtoCart = () => {
+    if (CartQuantity && CartQuantity + quantity > product.quantity) return;
     dispatch(addToCart({ ...product, cartQuantity: quantity }));
   };
   return (
@@ -74,11 +81,21 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
             onChange={(e) => handleSetQuantity(Number(e.target.value))}
           />
           <QuantityButton
-            onClick={() => handleComputedQuantity(1)}
+            onClick={() => {
+              if (quantity === product?.quantity) return;
+              if (CartQuantity && CartQuantity + quantity >= product.quantity) {
+                return;
+              }
+              handleComputedQuantity(1);
+            }}
             icon={<PlusOutlined />}
           ></QuantityButton>
         </QuantityWrapper>
-        <AddToCartButton shape="round" onClick={handleAddtoCart}>
+        <AddToCartButton
+          shape="round"
+          onClick={handleAddtoCart}
+          disabled={CartQuantity ? CartQuantity + quantity >= product.quantity : false}
+        >
           Add To Cart
         </AddToCartButton>
       </BuyProductWrap>

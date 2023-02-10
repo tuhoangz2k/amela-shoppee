@@ -29,7 +29,6 @@ const ProfilePage = (props: Props) => {
   const navigated = useNavigate();
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData(['user']);
-  console.log(data);
   const hasToken = checkHasToken();
   const userQuery = useQuery({
     queryKey: ['user'],
@@ -47,8 +46,9 @@ const ProfilePage = (props: Props) => {
     values = { ...values, birthday: values.birthday._i };
     if (!values.avatar) {
       values.avatar = '';
+    } else {
+      values.avatar = values.avatar.file;
     }
-    console.log(values);
     updateMutation.mutate(values, {
       onError: (error) => {
         console.log(error);
@@ -119,7 +119,7 @@ const ProfilePage = (props: Props) => {
                   <Radio value={2}> female </Radio>
                 </Radio.Group>
               </ProfileForm.Item>
-              <ProfileForm.Item label="Upload Avatar" name="avatar">
+              <ProfileForm.Item label="Upload Avatar">
                 <Upload listType="picture-card" disabled>
                   <PlusOutlined />
                 </Upload>

@@ -1,4 +1,3 @@
-import { TabsProps } from 'antd';
 export const PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 export const IMAGE_BASE_LINK = 'http://vu.fresher.ameladev.click/uploads/';
 export const options = [
@@ -58,18 +57,5 @@ export const treeData = [
   {
     title: 'products',
     value: 'products',
-  },
-];
-
-export const items: TabsProps['items'] = [
-  {
-    key: '1',
-    label: `DESCRIPTION`,
-    children: `Content of Tab Pane 1`,
-  },
-  {
-    key: '2',
-    label: `REVIEWS`,
-    children: `Content of Tab Pane 2`,
   },
 ];

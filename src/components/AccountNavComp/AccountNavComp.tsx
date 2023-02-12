@@ -35,7 +35,7 @@ const AccountNavComp: React.FC<Props> = ({ user }) => {
           <Link to={routePaths.profile}>My Profile</Link>
         </NavigateItem>
         <NavigateItem>
-          <Link to={routePaths.profile}>My Purchase</Link>
+          <Link to={routePaths.purchase}>My Purchase</Link>
         </NavigateItem>
       </NavigateAccount>
     </AccountNavCompWrap>

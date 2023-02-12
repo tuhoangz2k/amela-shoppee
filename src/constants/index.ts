@@ -5,3 +5,4 @@ export * from './categories';
 export * from './navList';
 export * from './products';
 export * from './commom';
+export * from './rules';

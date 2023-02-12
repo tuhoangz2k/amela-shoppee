@@ -21,7 +21,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import images from 'assets/imgs';
 import useViewport from 'hooks/useViewport ';
 import { IMAGE_BASE_LINK, breakPonits, routePaths } from 'constants/index';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import userApi from 'api/userApi';
 
 interface IHeaderNavigated {

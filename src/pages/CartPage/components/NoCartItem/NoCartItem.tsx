@@ -2,6 +2,7 @@ import React from 'react';
 import { NoCartWrap, NoCartImg, TextStyled, ButtonStyled } from './NoCartItem.styled';
 import imgs from 'assets/imgs';
 import { useNavigate } from 'react-router-dom';
+import { routePaths } from 'constants/index';
 type Props = {};
 
 const NoCartItem = (props: Props) => {
@@ -10,7 +11,9 @@ const NoCartItem = (props: Props) => {
     <NoCartWrap>
       <NoCartImg src={imgs.noCartItem} />
       <TextStyled>Your shopping cart is empty</TextStyled>
-      <ButtonStyled>Go Shopping Now</ButtonStyled>
+      <ButtonStyled onClick={() => navigated(routePaths.products)}>
+        Go Shopping Now
+      </ButtonStyled>
     </NoCartWrap>
   );
 };

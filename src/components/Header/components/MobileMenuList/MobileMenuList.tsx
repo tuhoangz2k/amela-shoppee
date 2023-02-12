@@ -12,8 +12,6 @@ const MobileMenuList = (props: Props) => {
     modest: false,
   });
 
-  const [isOpenSearchInput, setIsOpenSearchInput] = useState(true);
-
   const toggleMenuList = (
     name: string,
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,

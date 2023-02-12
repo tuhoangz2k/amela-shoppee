@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import {
@@ -10,7 +10,7 @@ import {
   ButtonWrapperStyled,
   LabelNavigate,
 } from './RegisterForm.styled';
-import { routePaths } from 'constants/index';
+import { nameRule, passwordRule, routePaths, usernameRule } from 'constants/index';
 import { checkHasToken } from 'utils';
 import { useMutation } from '@tanstack/react-query';
 import { IUserRegister } from 'models';
@@ -56,50 +56,15 @@ const RegisterForm: React.FC<Props> = ({}) => {
         autoComplete="off"
         form={form}
       >
-        <FormStyled.Item
-          label="Username"
-          name="email"
-          rules={[
-            {
-              required: true,
-              min: 6,
-              message: 'your username has must be at least 6 characters',
-            },
-            {
-              type: 'email',
-              message: 'username must an valid email address',
-            },
-          ]}
-          hasFeedback
-        >
+        <FormStyled.Item label="Username" name="email" rules={usernameRule} hasFeedback>
           <InputStyled placeholder="Username" />
         </FormStyled.Item>
 
-        <FormStyled.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please password has must be at least 6 characters',
-              min: 6,
-            },
-          ]}
-        >
+        <FormStyled.Item label="Password" name="password" rules={passwordRule}>
           <InputStyled.Password placeholder="Password" />
         </FormStyled.Item>
 
-        <FormStyled.Item
-          label="Full Name"
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Full Name is required',
-            },
-          ]}
-          hasFeedback
-        >
+        <FormStyled.Item label="Full Name" name="name" rules={nameRule} hasFeedback>
           <InputStyled placeholder="Full name" />
         </FormStyled.Item>
 

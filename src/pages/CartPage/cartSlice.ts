@@ -69,6 +69,15 @@ export const cartSlice = createSlice({
       removeCartStore();
       state.isNoItem = state.isNoItem = true;
     },
+    cartPayment: (state, action: PayloadAction) => {
+      state.cartItems = state.cartItems.filter((item) => !item.isCkecked);
+      if (state.cartItems.length === 0) {
+        state.isNoItem = true;
+        removeCartStore();
+      } else {
+        setCartLocalStorage(state.cartItems);
+      }
+    },
   },
 });
 
@@ -81,6 +90,7 @@ export const {
   changeCartChecked,
   toggleCheckedAll,
   removeAll,
+  cartPayment,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

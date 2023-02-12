@@ -12,7 +12,7 @@ import {
   ButtonWrapperStyled,
   LabelNavigate,
 } from './LoginForm.styled';
-import { routePaths } from 'constants/index';
+import { passwordRule, routePaths, usernameRule } from 'constants/index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { checkHasToken } from 'utils';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -77,42 +77,13 @@ const LoginForm: React.FC<Props> = ({}) => {
         autoComplete="off"
         onError={(error) => console.log(error)}
       >
-        <FormStyled.Item
-          label="Username"
-          name="email"
-          rules={[
-            {
-              required: true,
-              min: 6,
-              message: 'your username has must be at least 6 characters',
-            },
-            {
-              type: 'email',
-              message: 'username must an valid email address',
-            },
-          ]}
-          hasFeedback
-        >
+        <FormStyled.Item label="Username" name="email" rules={usernameRule} hasFeedback>
           <InputStyled placeholder="Username" />
         </FormStyled.Item>
 
-        <FormStyled.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please password has must be at least 6 characters',
-              min: 6,
-            },
-          ]}
-        >
+        <FormStyled.Item label="Password" name="password" rules={passwordRule}>
           <InputStyled.Password placeholder="Password" />
         </FormStyled.Item>
-
-        {/* <FormStyled.Item valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-          <CheckboxStyled>Remember me</CheckboxStyled>
-        </FormStyled.Item> */}
 
         <LabelNavigate>
           You have not an account! <Link to={routePaths.register}>Sign up now</Link>

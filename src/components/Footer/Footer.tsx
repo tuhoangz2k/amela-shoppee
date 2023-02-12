@@ -68,14 +68,7 @@ const Footer: React.FC<Props> = ({}) => {
       )}
       <FooterBottom>
         <TypographyStyled>
-          Powered By{' '}
-          <Link
-            style={{ textDecoration: 'none', color: colors.blue }}
-            to={routePaths.cart}
-          >
-            OpenCart
-          </Link>{' '}
-          Your Store © 2023
+          Powered By <Link to={routePaths.cart}>OpenCart</Link> Your Store © 2023
         </TypographyStyled>
         <SocialsContainer>
           {FooterSocials.map((icon, index) => (

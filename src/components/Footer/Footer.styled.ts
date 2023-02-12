@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakPonits } from 'constants/index';
+import { breakPonits, colors } from 'constants/index';
 
 export const FooterWrapper = styled.footer`
   background: #252525;
@@ -24,6 +24,10 @@ export const FooterBottom = styled.div`
 `;
 export const TypographyStyled = styled.p`
   font-size: 14px;
+  a {
+    text-decoration: none;
+    color: ${colors.blue};
+  }
 `;
 export const SocialsContainer = styled.div`
   display: flex;

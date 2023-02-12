@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 import {
   Wrapper,
   Container,
@@ -16,19 +17,17 @@ import {
 } from './ProfilePage.styled';
 import AccountNavComp from 'components/AccountNavComp/AccountNavComp';
 import { DatePicker, Radio, Upload } from 'antd';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import userApi from 'api/userApi';
 import { PlusOutlined } from '@ant-design/icons';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { checkHasToken } from 'utils';
-import { PHONE_REGEX } from 'constants/index';
-import { error } from 'console';
+import { addressRule, phoneRule } from 'constants/index';
 type Props = {};
 
 const ProfilePage = (props: Props) => {
   const navigated = useNavigate();
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData(['user']);
+  const [form] = ProfileForm.useForm();
   const hasToken = checkHasToken();
   const userQuery = useQuery({
     queryKey: ['user'],
@@ -38,10 +37,36 @@ const ProfilePage = (props: Props) => {
       navigated('/');
     },
     retryDelay: 500,
+    staleTime: 20000,
+    onSuccess: (data) => {
+      const profile = data.data?.profile;
+      console.log(data.data);
+      if (!!profile) {
+        form.setFields([
+          { name: 'phone', value: profile?.phone },
+          { name: 'address', value: profile?.address },
+          { name: 'gender', value: profile?.gender },
+          {
+            name: 'birthday',
+            value: profile?.birthday ? moment(profile?.birthday) : moment('2000-12-12'),
+          },
+        ]);
+      }
+    },
   });
-
-  const updateMutation = useMutation({ mutationFn: userApi.updateProfile });
-
+  const updateMutation = useMutation({
+    mutationFn: userApi.updateProfile,
+    onError: () => {
+      toast.error('something went wrong. Update profile failed', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    },
+    onSuccess: () => {
+      toast.success('Update profile success', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    },
+  });
   const onFinish = async (values: any) => {
     values = { ...values, birthday: values.birthday._i };
     if (!values.avatar) {
@@ -49,20 +74,20 @@ const ProfilePage = (props: Props) => {
     } else {
       values.avatar = values.avatar.file;
     }
-    updateMutation.mutate(values, {
-      onError: (error) => {
-        console.log(error);
-      },
-      onSuccess: (data) => {
-        userQuery.refetch();
-      },
-    });
+    console.log(values.avatar.thumbUrl);
+    // updateMutation.mutate(values, {
+    //   onError: (error) => {
+    //     console.log(error);
+    //   },
+    //   onSuccess: () => {
+    //     userQuery.refetch();
+    //   },
+    // });
   };
-
   const worker = {
-    birthday: moment('1999-12-25'),
+    birthday: moment('2000-12-12'),
   };
-  if (!hasToken) return <Navigate to={'/'} />;
+  if (!hasToken && !!userQuery.data?.data) return <Navigate to={'/'} />;
   return (
     <Wrapper>
       <Container>
@@ -80,47 +105,28 @@ const ProfilePage = (props: Props) => {
               onFinish={onFinish}
               autoComplete="off"
               initialValues={worker}
+              form={form}
             >
-              <ProfileForm.Item
-                name="phone"
-                rules={[
-                  {
-                    required: true,
-                    pattern: PHONE_REGEX,
-                    message: 'phone number must an valid number',
-                  },
-                ]}
-                hasFeedback
-              >
+              <ProfileForm.Item name="phone" rules={phoneRule} hasFeedback>
                 <InputStyled placeholder="Phone number" />
               </ProfileForm.Item>
 
-              <ProfileForm.Item
-                name="address"
-                rules={[
-                  {
-                    required: true,
-                    min: 6,
-                    message: 'your address has must be at least 6 characters',
-                  },
-                ]}
-                hasFeedback
-              >
+              <ProfileForm.Item name="address" rules={addressRule} hasFeedback>
                 <InputStyled placeholder="Address" />
               </ProfileForm.Item>
 
-              <ProfileForm.Item name="birthday" hasFeedback>
+              <ProfileForm.Item name="birthday" hasFeedback required>
                 <DatePicker />
               </ProfileForm.Item>
 
-              <ProfileForm.Item name="gender" label="Gender" hasFeedback>
+              <ProfileForm.Item name="gender" label="Gender" hasFeedback required>
                 <Radio.Group>
                   <Radio value={1}> Male </Radio>
                   <Radio value={2}> female </Radio>
                 </Radio.Group>
               </ProfileForm.Item>
-              <ProfileForm.Item label="Upload Avatar">
-                <Upload listType="picture-card" disabled>
+              <ProfileForm.Item label="Upload Avatar" name="avatar" required>
+                <Upload listType="picture-card">
                   <PlusOutlined />
                 </Upload>
               </ProfileForm.Item>

@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 import { breakPonits, colors } from 'constants/index';
 import { Button, Form, Input } from 'antd';
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Paragraph } = Typography;
 
 export const Wrapper = styled.div`
   display: flex;

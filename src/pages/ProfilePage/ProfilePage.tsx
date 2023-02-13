@@ -53,6 +53,8 @@ const ProfilePage = (props: Props) => {
       }
     },
   });
+  console.log(userQuery.data?.data);
+  const profile = userQuery.data?.data?.profile;
   const updateMutation = useMutation({
     mutationFn: userApi.updateProfile,
     onError: () => {
@@ -83,7 +85,7 @@ const ProfilePage = (props: Props) => {
     // });
   };
   const worker = {
-    birthday: moment('2000-12-12'),
+    birthday: profile?.birthday ? moment(profile?.birthday) : moment('2000-12-12'),
   };
   if (!hasToken && !!userQuery.data?.data) return <Navigate to={'/'} />;
   return (
@@ -105,11 +107,21 @@ const ProfilePage = (props: Props) => {
               initialValues={worker}
               form={form}
             >
-              <ProfileForm.Item name="phone" rules={phoneRule} hasFeedback>
+              <ProfileForm.Item
+                name="phone"
+                rules={phoneRule}
+                initialValue={profile?.phone}
+                hasFeedback
+              >
                 <InputStyled placeholder="Phone number" />
               </ProfileForm.Item>
 
-              <ProfileForm.Item name="address" rules={addressRule} hasFeedback>
+              <ProfileForm.Item
+                name="address"
+                rules={addressRule}
+                hasFeedback
+                initialValue={profile?.address}
+              >
                 <InputStyled placeholder="Address" />
               </ProfileForm.Item>
 
@@ -117,7 +129,13 @@ const ProfilePage = (props: Props) => {
                 <DatePicker />
               </ProfileForm.Item>
 
-              <ProfileForm.Item name="gender" label="Gender" hasFeedback required>
+              <ProfileForm.Item
+                name="gender"
+                label="Gender"
+                initialValue={profile?.gender}
+                hasFeedback
+                required
+              >
                 <Radio.Group>
                   <Radio value={1}> Male </Radio>
                   <Radio value={2}> female </Radio>

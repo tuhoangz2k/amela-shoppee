@@ -13,5 +13,6 @@ export const routePaths = {
   detail: '/products/:id',
   payment: '/payment',
   notFound: '*',
+  orderDetailPath: '/order/:id',
   orderDetail: (id: number | string) => `/order/${id}`,
 } as const;

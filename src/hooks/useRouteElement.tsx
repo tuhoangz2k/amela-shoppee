@@ -12,6 +12,7 @@ import DetailPage from 'pages/DetailPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import PaymentPage from 'pages/PaymentPage';
 import OrderPage from 'pages/OrderPage/OrderPage';
+import OrderDetail from 'pages/OrderDetail/OrderDetail';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -88,6 +89,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <OrderPage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: routePaths.orderDetailPath,
+      element: (
+        <MainLayout>
+          <OrderDetail />
         </MainLayout>
       ),
     },

@@ -11,6 +11,7 @@ import CartPage from 'pages/CartPage';
 import DetailPage from 'pages/DetailPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import PaymentPage from 'pages/PaymentPage';
+import OrderPage from 'pages/OrderPage/OrderPage';
 const useRouteElement = () => {
   const elements = useRoutes([
     {
@@ -79,6 +80,14 @@ const useRouteElement = () => {
       element: (
         <MainLayout>
           <PaymentPage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: routePaths.purchase,
+      element: (
+        <MainLayout>
+          <OrderPage />
         </MainLayout>
       ),
     },

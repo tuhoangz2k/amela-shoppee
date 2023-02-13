@@ -98,7 +98,7 @@ const HeaderTopComp: React.FC<Props> = ({ user, refetchUser }) => {
     },
     {
       key: '88',
-      label: <Link to={routePaths.home}>Purchase</Link>,
+      label: <Link to={routePaths.purchase}>Purchase</Link>,
     },
     {
       key: '99',

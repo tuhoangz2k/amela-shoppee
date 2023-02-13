@@ -9,7 +9,7 @@ import {
   NavigateItem,
 } from './AccountNavComp.styled';
 import AvatarComp from 'components/AvatarComp';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 type Props = {
   user: any;
@@ -32,10 +32,10 @@ const AccountNavComp: React.FC<Props> = ({ user }) => {
       <ParagraphProfile>{user?.user?.name}</ParagraphProfile>
       <NavigateAccount>
         <NavigateItem>
-          <Link to={routePaths.profile}>My Profile</Link>
+          <NavLink to={routePaths.profile}>My Profile</NavLink>
         </NavigateItem>
         <NavigateItem>
-          <Link to={routePaths.purchase}>My Purchase</Link>
+          <NavLink to={routePaths.purchase}>My Purchase</NavLink>
         </NavigateItem>
       </NavigateAccount>
     </AccountNavCompWrap>

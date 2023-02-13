@@ -25,7 +25,7 @@ const CarouselLeft = ({ images }) => {
     <CarouselLeftWrap>
       <Carousel
         data={
-          images
+          images && images?.length > 0
             ? images.map((item) => ({ image: `${IMAGE_BASE_LINK}${item?.image}` }))
             : data
         }

@@ -14,7 +14,9 @@ const userApi = {
     return http.get('profile/getUser');
   },
   updateProfile() {
-    return http.post('profile/updateUser');
+    return http.post('profile/updateUser', {
+      Headers: { 'Content-Type': 'multipart/form-data' },
+    });
   },
 };
 export default userApi;

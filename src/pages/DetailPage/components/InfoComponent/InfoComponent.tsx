@@ -94,7 +94,7 @@ const InfoComponent: React.FC<Props> = ({ product }) => {
         <AddToCartButton
           shape="round"
           onClick={handleAddtoCart}
-          disabled={CartQuantity ? CartQuantity + quantity >= product.quantity : false}
+          disabled={CartQuantity ? CartQuantity + quantity > product.quantity : false}
         >
           Add To Cart
         </AddToCartButton>

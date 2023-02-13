@@ -27,10 +27,11 @@ import partner5 from './partner5.jpg';
 import partner6 from './partner6.jpg';
 import partner7 from './partner7.jpg';
 import leftbanner from './left-banner.jpg';
-
+import noOrder from './noOrder.png';
 export default {
   loginImg,
   logoImg,
+  noOrder,
   authImg,
   qrImg,
   avatar,

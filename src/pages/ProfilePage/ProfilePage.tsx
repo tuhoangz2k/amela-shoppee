@@ -40,7 +40,6 @@ const ProfilePage = (props: Props) => {
     staleTime: 20000,
     onSuccess: (data) => {
       const profile = data.data?.profile;
-      console.log(data.data);
       if (!!profile) {
         form.setFields([
           { name: 'phone', value: profile?.phone },
@@ -72,9 +71,8 @@ const ProfilePage = (props: Props) => {
     if (!values.avatar) {
       values.avatar = '';
     } else {
-      values.avatar = values.avatar.file;
+      values.avatar = values?.avatar?.fileList[0].originFileObj;
     }
-    console.log(values.avatar.thumbUrl);
     // updateMutation.mutate(values, {
     //   onError: (error) => {
     //     console.log(error);

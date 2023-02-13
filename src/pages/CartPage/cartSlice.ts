@@ -70,12 +70,14 @@ export const cartSlice = createSlice({
       state.isNoItem = state.isNoItem = true;
     },
     cartPayment: (state, action: PayloadAction) => {
-      state.cartItems = state.cartItems.filter((item) => !item.isCkecked);
-      if (state.cartItems.length === 0) {
+      const newArr = state.cartItems.filter((item) => !item.isCkecked);
+      if (newArr.length === 0) {
         state.isNoItem = true;
+        state.cartItems = [];
         removeCartStore();
       } else {
-        setCartLocalStorage(state.cartItems);
+        state.cartItems = newArr;
+        setCartLocalStorage(newArr);
       }
     },
   },

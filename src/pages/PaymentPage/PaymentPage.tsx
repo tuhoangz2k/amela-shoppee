@@ -31,7 +31,7 @@ const PaymentPage = (props: Props) => {
     mutationFn: (body: IPayment) => orderApi.payment(body),
     onSuccess(data, variables, context) {
       removeCartStore();
-      dispatch(cartPayment);
+      dispatch(cartPayment());
       navigated(routePaths.products);
       toast('payment successful', {
         position: toast.POSITION.TOP_RIGHT,
@@ -39,7 +39,6 @@ const PaymentPage = (props: Props) => {
     },
   });
   const isLogin = !!user;
-  console.log(user?.data);
   const onFinish = (values: any) => {
     values.total_price = total;
     values.obj = cartProductCheck;

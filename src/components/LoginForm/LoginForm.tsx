@@ -64,7 +64,7 @@ const LoginForm: React.FC<Props> = ({}) => {
 
   console.log(isLogin);
   const onFinishFailed = (errorInfo: any) => {};
-  if (isLogin) return <Navigate to={routePaths.home} replace={true} />;
+  if (isLogin && hasToken) return <Navigate to={routePaths.home} replace={true} />;
 
   return (
     <LoginformContainer>

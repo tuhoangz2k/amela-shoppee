@@ -53,7 +53,6 @@ const ProfilePage = (props: Props) => {
       }
     },
   });
-  console.log(userQuery.data?.data);
   const profile = userQuery.data?.data?.profile;
   const updateMutation = useMutation({
     mutationFn: userApi.updateProfile,
@@ -75,14 +74,14 @@ const ProfilePage = (props: Props) => {
     } else {
       values.avatar = values?.avatar?.fileList[0].originFileObj;
     }
-    // updateMutation.mutate(values, {
-    //   onError: (error) => {
-    //     console.log(error);
-    //   },
-    //   onSuccess: () => {
-    //     userQuery.refetch();
-    //   },
-    // });
+    updateMutation.mutate(values, {
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: () => {
+        userQuery.refetch();
+      },
+    });
   };
   const worker = {
     birthday: profile?.birthday ? moment(profile?.birthday) : moment('2000-12-12'),

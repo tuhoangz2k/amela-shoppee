@@ -13,7 +13,7 @@ type Props = {};
 const ProductsFeature: React.FC<Props> = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [priceSort, setPriceSort] = useState({ price_from: 0, price_to: 0 });
+  const [priceSort, setPriceSort] = useState({ price_from: 1, price_to: 0 });
   const filter = useMemo(() => queryString.parse(location.search), [location.search]);
 
   const productListQuery = useQuery({

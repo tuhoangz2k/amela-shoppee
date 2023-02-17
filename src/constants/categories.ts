@@ -45,5 +45,5 @@ export const categories: Array<ICategory> = [
     ],
   },
   { label: 'OFFICE WEAR', path: routePaths.hoodies },
-  { label: 'PRODUCTS', path: routePaths.hoodies },
+  { label: 'PRODUCTS', path: routePaths.products },
 ];
